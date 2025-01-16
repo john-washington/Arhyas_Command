@@ -1,0 +1,17 @@
+Manual command shell script
+
+arhyas_command.sh: the main script
+
+data files:
+the prefix with '_' comma delimited '.csv' files are the prayer texts components
+the argument to the main script is a file with just a list of ip addresses, also in comma delimited form:
+
+xxx, <ip address>, xxx bbb, <ip address>, bbb
+
+the main script cares about the second column, the rest could be garbage, however they need to be the format stated with comma separating the columns
+
+example file and how it runs: ./arhyas_command.sh www.skpye.com.traceroute.txt
+
+So the call dependencies are: arhyas_command.sh -> read.sh -> csv files of prayer text + the target network
+
+
