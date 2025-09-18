@@ -16,3 +16,24 @@ example file and how it runs: ./arhyas_command.sh www.skpye.com.traceroute.txt
 So the call dependencies are: arhyas_command.sh -> read.sh -> csv files of prayer text + the target network
 
 
+Version 2 date: 9-18-2025
+
+This version combined the traceroute and the arhyas_command into one script, so no manual editing is needed.
+
+To run it:
+
+./arhyas_command2.sh <ip address>
+
+or
+
+./arhyas_command2.sh <web address>
+
+example:
+
+./arhyas_command2.sh www.youtube.com
+
+or 
+
+./arhyas_command2.sh 59.37.176.121
+
+
