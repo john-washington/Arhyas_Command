@@ -64,16 +64,21 @@ or 或
 
 
 
-==================Update 9-23-2023==============
+==================Update 9-23-2025==============
 Version 3 - parallel
 
 This version uses GNU parallel framework to implement parallel execution to make the process run much faster.
 
 Prepare the system by installing GNU parallel:
 
-example:
+linux example:
 
 sudo apt install parallel
+
+macOS example:
+
+brew install parallel
+
 
 Then make sure to have the following new additional scripts in the same shell_script directory:
 
