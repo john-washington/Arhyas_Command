@@ -36,4 +36,57 @@ or
 
 ./arhyas_command2.sh 59.37.176.121
 
+==================Update 9-18-2025===============
+Version 2 Upgrade-No Manual Editing is needed to run 
+Version 2 date: 9-18-2025
+
+版本 2 日期：2025 年 9 月 18 日
+
+This version combined the traceroute and the arhyas_command into one script, so no manual editing is needed.
+
+此版本将 traceroute 和 arhyas_command 
+
+To run it: 
+./arhyas_command2.sh [ip address IP]
+
+or 或
+
+./arhyas_command2.sh [web site ]
+
+example:  
+例：
+
+./arhyas_command2.sh www.youtube.com
+
+or 或
+
+./arhyas_command2.sh 59.37.176.121
+
+
+
+==================Update 9-23-2023==============
+Version 3 - parallel
+
+This version uses GNU parallel framework to implement parallel execution to make the process run much faster.
+
+Prepare the system by installing GNU parallel:
+
+example:
+
+sudo apt install parallel
+
+Then make sure to have the following new additional scripts in the same shell_script directory:
+
+tracelist.sh   (This script decouple the function of filtering ip address to one module)
+arhyas_msg.sh  (This is the script being parallelized)
+arhyas_command_parallel.sh (This is the new master script)
+
+lastly, run it by:
+
+./arhyas_command_parallel.sh www.youtube.com
+
+example:
+./arhyas_command_parallel.sh www.youtube.com
+
+
 
