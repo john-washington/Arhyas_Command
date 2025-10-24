@@ -17,10 +17,10 @@ str_to_hex() {
 #else
   while IFS=, read -r field1 field2
   do
-    sleep 30
     echo "Field 1: $field1"
     hex_string=$(str_to_hex "$field1")
     ping -c 1 -p "$hex_string" $host
+    sleep $((RANDOM % 60))
   done < "$csv_file"
 #fi
 exit 0
