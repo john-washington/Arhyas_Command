@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in {1,2000}
+for i in {1..2000}
 do
    echo "Round ${i}"
    #take care of the target first
@@ -8,8 +8,8 @@ do
    ./arhyas_msg.sh "$1" && traceroute -4 "$1" | ./tracelist.sh | xargs -I {} ./arhyas_msg.sh {}
    PID=$!
    wait $PID
-   SEC=$((RANDOM % 600))
-   echo "Process ${PID} finished, sleep ${SEC} seconds..."
+   SEC=$((RANDOM % 360))
+   echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
    sleep $SEC
 done
 	
