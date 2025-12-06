@@ -8,7 +8,8 @@ do
    ./arhyas_msg.sh "$1" && traceroute -4 "$1" | ./tracelist.sh | xargs -I {} ./arhyas_msg.sh {}
    PID=$!
    wait $PID
-   echo "sleep random seconds..."
-   sleep $((RANDOM % 360))
+   SEC=$((RANDOM % 600))
+   echo "Process ${PID} finished, sleep ${SEC} seconds..."
+   sleep $SEC
 done
 	
