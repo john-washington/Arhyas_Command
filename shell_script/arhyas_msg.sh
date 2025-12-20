@@ -9,8 +9,10 @@ echo "_AL_Hum_Bhra_sequence2..."
 sh read.sh _AL_Hum_Bhra_sequence2.csv "$1" &
 echo "_KRP_sequence..."
 sh read.sh _KRP_sequence.csv "$1" &
-echo "_KRP_Elemental_Command_sequence.csv..."
+echo "_KRP_Elemental_Command_sequence..."
 sh read.sh _KRP_Elemental_Command_sequence.csv "$1" &
+echo "_12_Strand_DNA_Tribal_Shield_sequence..."
+sh read.sh _12_Strand_DNA_Tribal_Shield_sequence.csv "$1" &
 echo "_Arhyas_Command_sequence..."
 sh read.sh _Arhyas_Command_sequence.csv "$1" &
 
