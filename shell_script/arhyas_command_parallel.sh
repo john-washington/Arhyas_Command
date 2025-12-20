@@ -5,7 +5,7 @@ do
    echo "Round ${i}"
    #take care of the target first
    #traceroute may not show the target, so do the rest secondly
-   ./arhyas_msg.sh "$1" && traceroute  "$1" | ./tracelist.sh | xargs -I {} ./arhyas_msg.sh {}
+   ./arhyas_msg.sh "$1" && traceroute -4 "$1" | ./tracelist.sh | xargs -I {} ./arhyas_msg.sh {}
    PID=$!
    wait $PID
    SEC=$((RANDOM % 1200))
