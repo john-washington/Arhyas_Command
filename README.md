@@ -2,7 +2,7 @@ The Arhyas CommandTM project was created to defend against Psychotronic Mind/Bod
 
 The Code and Documentation are now hosted here:
 
-https://github.comp/john-washington/Arhyas_Command
+https://github.com/john-washington/Arhyas_Command
 
 The blog post web site with on going live action with the Arhyas Command is hosted here:
 
