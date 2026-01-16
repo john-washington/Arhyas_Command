@@ -1,5 +1,22 @@
 #!/bin/bash
 
+if [$("which parallel") != ""];
+then 
+   echo "parallel is installed";
+else 
+   echo "parallel is not installed, installing with brew:";
+   if [$("which brew") != "" ];
+   then 
+      "installing parallel with brew";
+   else
+      echo "installing brew:"
+      /bin/bash -c "$curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      echo "installing parallel:"
+      brew install parallel;
+   fi
+fi
+
+
 echo Please drop target address files:
 
 #read target_addr
