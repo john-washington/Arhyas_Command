@@ -5,12 +5,11 @@ then
    echo "parallel is installed";
 else 
    echo "parallel is not installed, installing with brew:";
-   if [$("which brew") != "" ];
-   then 
-      "installing parallel with brew";
+   if [$("which brew") == "" ];
+   then
+      echo please install brew by running this command in a terminal with your admin password, after which restart this program: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      exit 0;
    else
-      echo "installing brew:"
-      /bin/bash -c "$curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       echo "installing parallel:"
       brew install parallel;
    fi
