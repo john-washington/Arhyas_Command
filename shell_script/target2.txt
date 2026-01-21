@@ -1,0 +1,18 @@
+www.lingnan.edu.cn zh
+www.government.ru ru
+en.kremlin.ru ru
+mid.ru ru
+www.gov.ru ru
+premier.gov.ru ru
+www.president.gov.ua uk
+www.kmu.gov.ua uk
+mod.gov.ua uk
+www.rada.gov.ua uk
+www.gov.il he
+www.pmo.pna.ps ar
+www.pcbs.gov.ps ar
+www.palestinecabinet.gov.ps ar
+www.minneapolismn.gov en
+www.fletc.gov en
+www.whitehouse.gov en
+

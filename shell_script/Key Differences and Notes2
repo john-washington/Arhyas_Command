@@ -1,0 +1,22 @@
+Key Differences and Notes:
+Hex Conversion: Windows doesn't have od command, so I used PowerShell for hex conversion
+Ping Pattern: Windows ping doesn't support -p (pattern) option like Linux. The script uses regular ping
+Timeout: Used -w 15000 for 15-second timeout (similar to your 15-second timeout)
+Random Sleep: Uses %random% %% 60 for 0-59 second random sleep
+CSV Parsing: Uses for /f with comma delimiter to parse CSV
+Error Handling: Includes file existence check and proper error messages
+Alternative Versions:
+ping_csv.bat: First attempt with certutil-based hex conversion
+ping_csv_simple.bat: Simplified version without hex conversion
+Usage:
+ping_csv_advanced.bat data.csv 192.168.1.1
+Batch
+The script will:
+
+Read the CSV file line by line
+Convert each field to hex (using PowerShell)
+Ping the target host
+Sleep for random time (0-59 seconds)
+Continue with next line
+Note: Windows ping doesn't support sending custom hex patterns in the ping payload like Linux does. If you need that functionality, you would need to use a different tool or PowerShell script.
+
