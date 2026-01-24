@@ -138,8 +138,8 @@ of the,
 из,
 Divine Fire,
 Божественный Огонь,
-vapors
-Пары
+vapors,
+Пары,
 fire,
 Пожар
 
@@ -605,8 +605,6 @@ Tri-Matrix,
 Три-матрица,
 Co-operative,
 Кооператив,
-
-
 In the,
 В
 name of,
@@ -661,9 +659,6 @@ and God-Source,
 и Божий Источник,
 1st-Eternal,
 1-й Вечный,
-以AL-HUM-BHRA,
-
-
 And in the,
 И в,
 name of__,

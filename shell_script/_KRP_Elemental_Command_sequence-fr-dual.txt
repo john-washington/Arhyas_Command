@@ -128,8 +128,8 @@ of the,
 De la,
 Divine Fire,
 Feu Divin,
-vapors
-Vapeurs
+vapors,
+Vapeurs,
 fire,
 Feu
 

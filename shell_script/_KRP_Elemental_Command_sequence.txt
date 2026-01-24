@@ -70,7 +70,7 @@ Dur-a,
 Eternal Flame, 
 of the, 
 Divine Fire, 
-vapors
+vapors,
 fire,
 
 We call upon, 
@@ -156,7 +156,6 @@ Protection,
 here-in, 
 set...,
 
-..., 
 that, 
 the Spirit,  
 of Urtha-Sala, 

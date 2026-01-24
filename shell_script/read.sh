@@ -19,7 +19,8 @@ str_to_hex() {
   do
     echo "Field 1: $field1"
     hex_string=$(str_to_hex "$field1")
-    ping -c 1 -p "$hex_string" $host
+    ping -c $((RANDOM % 12)) -p "$hex_string" $host
+    #ping -c 5 -p "$hex_string" $host
     sleep $((RANDOM % 60))
   done < "$csv_file"
 #fi

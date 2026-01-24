@@ -6,16 +6,12 @@ Cloister,
 Клуатр,
 Emerald Order,
 Смарагдовий Орден,
-
-
 Holy Order of,
 Святий Орден,
 the Yunasai,
 Юнасай,
 Sacred House of ONE,
 Священний Дім ОДНОГО,
-
-
 In the name of,
 В ім'я,
 the Mashaya-Hana,
@@ -24,8 +20,6 @@ Councils of,
 Собори,
 Aquareion,
 Акварейон,
-
-
 In the name of,
 В ім'я,
 the Councils of,
@@ -36,8 +30,6 @@ KrystalA’,
 (основний домен,
 Councils),
 Собори),
-
-
 In the name of,
 В ім'я,
 the Councils of,
@@ -56,8 +48,6 @@ Tri-Matrix,
 Трі-матриця,
 coperative),
 копаративно),
-
-
 In the name of,
 В ім'я,
 the Councils of,
@@ -68,8 +58,6 @@ Aurora,
 (Трі-матричні раси,
 of Aquareion),
 Аквареіона),
-
-
 In the,
 У,
 Krystic Name,
@@ -88,8 +76,6 @@ and God-Source,
 -1st-Eternal,
 -1-Вічний,
 以AL-HUM-BHRA,
-
-
 We call upon,
 Ми звертаємося,
 the Kristiac,
@@ -112,14 +98,10 @@ gases,
 гази,
 air,
 повітря,
-
-
 Sha-A’,
 Ша-А,
 Da a-moor,
 З а-мура,
-
-
 We call upon,
 Ми звертаємося,
 the Kristiac,
@@ -138,12 +120,10 @@ of the,
 з,
 Divine Fire,
 Божественний Вогонь,
-vapors
-Пари
+vapors,
+Пари,
 fire,
 Полум’я
-
-
 We call upon,
 Ми звертаємося,
 the Kristiac,
@@ -164,8 +144,6 @@ liquids,
 рідини,
 waters,
 Води,
-
-
 We call upon,
 Ми звертаємося,
 the Kristiac,
@@ -187,8 +165,6 @@ Foundation Stone,
 fema,
 solids,
 тверді тіла,
-
-
 We call upon,
 Ми звертаємося,
 the Kristiac,
@@ -211,8 +187,6 @@ Ethers,
 1-Радіація,
 (breathe),
 (дихає),
-
-
 We now Command,
 Тепер ми командуємо,
 co-create,
@@ -228,8 +202,6 @@ entrusted Powers,
 of,
 Aurora Light,
 Світло Аврора,
-
-
 We now,
 Ми тепер,
 Invoke,
@@ -238,8 +210,6 @@ the Eternal,
 Вічний,
 Krysted Sun...,
 Крістед Сонце...,
-
-
 to Co-create,
 спільно створювати,
 Release,
@@ -258,12 +228,8 @@ in space-time,
 у просторі-часі,
 manifestation,
 демонстрація,
-
-
 breathe,
 Дихай,
-
-
 We now,
 Ми тепер,
 Declare,
@@ -272,8 +238,6 @@ in Eternal,
 у Вічному,
 Sanctification...,
 Освячення...,
-
-
 This PLACE,
 Це МІСЦЕ,
 this LAND,
@@ -298,9 +262,6 @@ Protection,
 here-in,
 Ось тут,
 set...,
-
-
-...,
 that,
 що,
 the Spirit,
@@ -325,8 +286,6 @@ here within,
 тут, всередині,
 Preside,
 Директоре,
-
-
 in the name,
 У назві,
 of the,
@@ -349,12 +308,8 @@ UN-Krys-ta’-LO,
 УН-Крис-та'-ЛО,
 Krystal River,
 Річка Кристал,
-
-
 (breathe),
 (дихає),
-
-
 In Co-Creative,
 У співтворчості,
 Krist Embrace,
@@ -433,12 +388,8 @@ God-Source,
 Боже-Джерело,
 can know,
 може знати,
-
-
 (breathe),
 (дихає),
-
-
 In Loving,
 З любов'ю,
 Kristiac,
@@ -487,12 +438,8 @@ Rei-ha-VA’-ah,
 Кінг-ха-ВА'-ах,
 UN-Krys-ta’-LO,
 УН-Крис-та'-ЛО,
-
-
 (breathe),
 (дихає),
-
-
 In Kristiac,
 У Крістіаку,
 Reverence,
@@ -527,12 +474,8 @@ Salvage Rite,
 Обряд порятунку,
 of Reclamation...,
 Рекультивації...,
-
-
 (breathe),
 (дихає),
-
-
 In the name of,
 В ім'я,
 the ONE,
@@ -545,8 +488,6 @@ ETERNAL,
 ВІЧНИЙ,
 God-Source,
 Боже-Джерело,
-
-
 In the name of,
 В ім'я,
 the KRIST-,
@@ -557,8 +498,6 @@ the Eternal,
 Вічний,
 Krist,
 Боже,
-
-
 In the name of,
 В ім'я,
 the,
@@ -568,8 +507,6 @@ UN-Krys-ta’-LO,
 УН-Крис-та'-ЛО,
 Krystal River,
 Річка Кристал,
-
-
 In the name of,
 В ім'я,
 the Councils,
@@ -580,8 +517,6 @@ Core Domain,
 Основний домен,
 Councils,
 Ради,
-
-
 In the name of,
 В ім'я,
 the Councils,
@@ -601,8 +536,6 @@ Tri-Matrix,
 Трі-матриця,
 Co-operative,
 Кооператив,
-
-
 In the,
 У,
 name of,
@@ -617,8 +550,6 @@ Races of,
 Раси,
 Aquareion,
 Акварейон,
-
-
 In the,
 У,
 name of,
@@ -630,8 +561,6 @@ Cloister,
 Клуатр,
 Emerald Order,
 Смарагдовий Орден,
-
-
 Holy Order of,
 Святий Орден,
 the Yunasai,
@@ -640,8 +569,6 @@ Sacred,
 Святе,
 House of ONE,
 Дім ОДНОГО,
-
-
 In the,
 У,
 Krystic Name,
@@ -658,8 +585,6 @@ and God-Source,
 1st-Eternal,
 1-й Вічний,
 以AL-HUM-BHRA,
-
-
 And in the,
 І в,
 name of__,

@@ -1,14 +1,19 @@
-#!/usr/local/bin/parallel --shebang-wrap /bin/bash
+#!/usr/local/bin/parallel -j24 --shebang-wrap /bin/bash
 
 echo "processing IP: $1"
 echo "_ELAi_sa_sequence..."
+
 sh read.sh _ELAi_sa_sequence.csv "$1" &
 echo "_AL_Hum_Bhra_sequence1..."
 sh read.sh _AL_Hum_Bhra_sequence1.csv "$1" &
+
 echo "_AL_Hum_Bhra_sequence2..."
 sh read.sh _AL_Hum_Bhra_sequence2.csv "$1" &
+
 echo "_KRP_sequence...";
-sh read.sh _KRP_sequence.csv "$1" &
+#sh read.sh _KRP_sequence.csv "$1" &
+sh read.sh _KRP_sequence_beginning.txt "$1" &
+
 
 language_code="$2"
 

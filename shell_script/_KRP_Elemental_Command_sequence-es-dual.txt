@@ -129,8 +129,8 @@ of the,
 de los,
 Divine Fire,
 Fuego Divino,
-vapors
-vapores
+vapors,
+vapores,
 fire,
 Fuego
 
