@@ -1,4 +1,4 @@
-#!/usr/local/bin/parallel -j24 --shebang-wrap /bin/bash
+#!/usr/bin/parallel -j24 --shebang-wrap /bin/bash
 
 echo "processing IP: $1"
 echo "_ELAi_sa_sequence..."

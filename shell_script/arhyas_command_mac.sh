@@ -32,7 +32,7 @@ do
    #&& xargs -I {} traceroute {} | ./tracelist.sh | xargs -n 2 {} ./arhyas_msg.sh {} 
    PID=$!
    wait $PID
-   SEC=$((RANDOM % 16384))
+   SEC=$((RANDOM % 1200))
    echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
    sleep $SEC
 done
