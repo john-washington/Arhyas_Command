@@ -13,6 +13,11 @@ else
       echo "installing parallel:"
       brew install parallel;
    fi
+   if [$("which xxd") == "" ];
+   then
+      echo please install xxd by running the following command in a terminal with your admin password, after which restart this program: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      echo brew install xxd
+      exit 0;
 fi
 
 

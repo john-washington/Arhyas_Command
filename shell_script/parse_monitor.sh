@@ -2,12 +2,12 @@
  
 #echo $1
 
-while IFS=' ' read -r field1 field2 field3 field4 field5 field6 field7 field8 field9;
+while IFS=' ' read -r field1 field2 field3 field4 field5 field6 field7 field8 field9 field10 field11 field12 field13;
 do
   echo ""
-  echo "sent to: $field9"
+  echo "sent to: $field13"
   echo ""
-  echo "mesage: $field8"
+  echo "mesage: $field12"
   echo ""
   echo "decoded to:"
   echo -n 0x${field8} | xxd -r |  tr -d '\%'
