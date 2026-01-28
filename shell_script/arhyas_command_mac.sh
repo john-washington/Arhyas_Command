@@ -30,9 +30,9 @@ do
    #wc -l "$1"
    cat "$1" | xargs -n 2 sh ./arhyas_msg.sh 
    #&& xargs -I {} traceroute {} | ./tracelist.sh | xargs -n 2 {} ./arhyas_msg.sh {} 
-   PID=$!
-   wait $PID
-   SEC=$((RANDOM % 1200))
+   #PID=$!
+   #wait $PID
+   SEC=$((RANDOM % 5000))
    echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
    sleep $SEC
 done
