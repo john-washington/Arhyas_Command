@@ -1,24 +1,6 @@
 #!/bin/bash
 
-if [$("which parallel") != ""];
-then 
-   echo "parallel is installed";
-else 
-   echo "parallel is not installed, installing with brew:";
-   if [$("which brew") == "" ];
-   then
-      echo please install brew by running this command in a terminal with your admin password, after which restart this program: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      exit 0;
-   else
-      echo "installing parallel:"
-      brew install parallel;
-   fi
-   if [$("which xxd") == "" ];
-   then
-      echo please install xxd by running the following command in a terminal with your admin password, after which restart this program: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      echo brew install xxd
-      exit 0;
-fi
+parallel -v >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel. Aborting."; exit 1;}
 
 
 echo Please drop target address files:

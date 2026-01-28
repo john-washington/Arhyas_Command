@@ -1,5 +1,6 @@
 #!/bin/bash
 
+xxd -v >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd. Aborting."; exit 1;}
 
 for i in {1..2048}
 do
