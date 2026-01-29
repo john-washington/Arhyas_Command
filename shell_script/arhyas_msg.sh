@@ -1,5 +1,4 @@
-parallel -v >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel. Aborting."; exit 1;}
-
+#command -v parallel >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel. Aborting."; exit 1;}
 
 #!/usr/bin/parallel -j24 --shebang-wrap /bin/bash
 
