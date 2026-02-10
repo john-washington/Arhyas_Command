@@ -1,12 +1,13 @@
 #!/bin/bash
  
 #echo $1
-command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd. Aborting."; exit 1; }
+command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by port install xxd(mac) or apt install xxd(linux). Aborting."; exit 1; }
 
 while IFS=' ' read -r field1 field2 field3 field4 field5 field6 field7 field8 field9 field10 field11 field12 field13;
 do
   echo ""
   echo "sent to: $field13"
+  whois $field13 | grep -i country
   echo ""
   echo "mesage: $field12"
   echo ""

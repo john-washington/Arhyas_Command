@@ -6,16 +6,12 @@ Cloister,
 Claustro,
 Emerald Order,
 Orden Esmeralda,
-
-
 Holy Order of,
 Orden Sagrada de,
 the Yunasai,
 los Yunasai,
 Sacred House of ONE,
 Casa Sagrada de UNO,
-
-
 In the name of,
 En nombre de,
 the Mashaya-Hana,
@@ -23,8 +19,6 @@ la Mashaya-Hana,
 Councils of,
 Consejos de,
 Aquareion,
-
-
 In the name of,
 En nombre de,
 the Councils of,
@@ -35,8 +29,6 @@ Krystala',
 (Dominio central,
 Councils),
 Ayuntamientos),
-
-
 In the name of,
 En nombre de,
 the Councils of,
@@ -50,8 +42,6 @@ Edonic-,
 Adonic,
 Tri-Matrix,
 coperative),
-
-
 In the name of,
 En nombre de,
 the Councils of,
@@ -61,8 +51,6 @@ Aurora,
 (Razas Tri-Matriz,
 of Aquareion),
 de Aquareion),
-
-
 In the,
 En
 Krystic Name,
@@ -81,8 +69,6 @@ y Dios-Fuente,
 -1st-Eternal,
 -1º-Eterno,
 以AL-HUM-BHRA,
-
-
 We call upon,
 Invocamos,
 the Kristiac,
@@ -104,14 +90,10 @@ Canto del Viento,
 gases,
 air,
 aire,
-
-
 Sha-A’,
 Sha-A',
 Da a-moor,
 De a-moor,
-
-
 We call upon,
 Invocamos,
 the Kristiac,
@@ -133,8 +115,6 @@ vapors,
 vapores,
 fire,
 Fuego
-
-
 We call upon,
 Invocamos,
 the Kristiac,
@@ -155,8 +135,6 @@ liquids,
 líquidos,
 waters,
 Aguas,
-
-
 We call upon,
 Invocamos,
 the Kristiac,
@@ -177,8 +155,6 @@ Piedra Fundacional,
 fema,
 solids,
 sólidos,
-
-
 We call upon,
 Invocamos,
 the Kristiac,
@@ -200,8 +176,6 @@ Ethers,
 1ª - Radiación,
 (breathe),
 (respira),
-
-
 We now Command,
 Ahora Comandamos,
 co-create,
@@ -218,8 +192,6 @@ of,
 de,
 Aurora Light,
 Luz Aurora,
-
-
 We now,
 Ahora sabemos,
 Invoke,
@@ -227,8 +199,6 @@ Invoca,
 the Eternal,
 el Eterno,
 Krysted Sun...,
-
-
 to Co-create,
 co-crear,
 Release,
@@ -247,12 +217,8 @@ in space-time,
 en el espacio-tiempo,
 manifestation,
 demostración,
-
-
 breathe,
 Respira,
-
-
 We now,
 Ahora sabemos,
 Declare,
@@ -261,8 +227,6 @@ in Eternal,
 en Eterno,
 Sanctification...,
 Santificación...,
-
-
 This PLACE,
 Este LUGAR,
 this LAND,
@@ -277,7 +241,6 @@ applications,
 aplicaciones,
 and All within,
 y Todo lo que hay dentro,
-...,
 Into the,
 Hacia el,
 Kristiac,
@@ -286,17 +249,14 @@ Protección,
 here-in,
 Por aquí,
 set...,
-
-
-...,
 that,
-ese
+ese,
 the Spirit,
 el Espíritu,
 of Urtha-Sala,
 de Urtha-Sala,
 Rise,
-Subir
+Subir,
 the Power of,
 el poder de,
 Urtha-Sala,
@@ -311,8 +271,6 @@ here within,
 Aquí dentro,
 Preside,
 Director,
-
-
 in the name,
 en el nombre,
 of the,
@@ -326,7 +284,7 @@ de,
 and by,
 y por,
 the,
-el
+el,
 Divine Vehicle,
 Vehículo Divino,
 of the,
@@ -337,12 +295,8 @@ UN-Krys-ta’-LO,
 UN-Krys-ta'-LO,
 Krystal River,
 Río Krystal,
-
-
 (breathe),
 (respira),
-
-
 In Co-Creative,
 En Co-Creativo,
 Krist Embrace,
@@ -420,12 +374,8 @@ God-Source,
 Dios-Fuente,
 can know,
 puede saber,
-
-
 (breathe),
 (respira),
-
-
 In Loving,
 En Loving,
 Kristiac,
@@ -472,12 +422,8 @@ Rei-ha-VA’-ah,
 Rei-ha-VA'-ah,
 UN-Krys-ta’-LO,
 UN-Krys-ta'-LO,
-
-
 (breathe),
 (respira),
-
-
 In Kristiac,
 En Kristiac,
 Reverence,
@@ -512,12 +458,8 @@ Salvage Rite,
 Rito de Rescate,
 of Reclamation...,
 de Reclamación...,
-
-
 (breathe),
 (respira),
-
-
 In the name of,
 En nombre de,
 the ONE,
@@ -530,8 +472,6 @@ ETERNAL,
 ETERNO,
 God-Source,
 Dios-Fuente,
-
-
 In the name of,
 En nombre de,
 the KRIST-,
@@ -542,20 +482,16 @@ the Eternal,
 el Eterno,
 Krist,
 Cristo,
-
-
 In the name of,
 En nombre de,
 the,
-el
+el,
 Rei-ha-VA’-ah,
 Rei-ha-VA'-ah,
 UN-Krys-ta’-LO,
 UN-Krys-ta'-LO,
 Krystal River,
 Río Krystal,
-
-
 In the name of,
 En nombre de,
 the Councils,
@@ -566,8 +502,6 @@ Core Domain,
 Dominio Núcleo,
 Councils,
 Consejos,
-
-
 In the name of,
 En nombre de,
 the Councils,
@@ -584,10 +518,8 @@ Adonic,
 Tri-Matrix,
 Co-operative,
 Cooperativa,
-
-
 In the,
-En
+En,
 name of,
 nombre de,
 the Councils,
@@ -598,22 +530,18 @@ Tri-Matrix,
 Races of,
 Razas de,
 Aquareion,
-
-
 In the,
-En
+En,
 name of,
 nombre de,
 the,
-el
+el,
 Melchizedek,
-Melquisedec
+Melquisedec,
 Cloister,
 Claustro,
 Emerald Order,
 Orden Esmeralda,
-
-
 Holy Order of,
 Orden Sagrada de,
 the Yunasai,
@@ -622,10 +550,8 @@ Sacred,
 Sagrado,
 House of ONE,
 Casa de UNO,
-
-
 In the,
-En
+En,
 Krystic Name,
 Nombre Krystic,
 and Action of,
@@ -640,8 +566,6 @@ y Dios-Fuente,
 1st-Eternal,
 1º-Eterno,
 以AL-HUM-BHRA,
-
-
 And in the,
 Y en el,
 name of__,
