@@ -1,1 +1,0 @@
-/Users/jzhang/Arhyas_Command/shell_script/monitor.sh
