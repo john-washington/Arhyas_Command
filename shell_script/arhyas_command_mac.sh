@@ -1,6 +1,19 @@
 #!/bin/bash
-#command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). Aborting."; exit 1; }
-#command -v parallel >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel by port install parallel(mac) or apt install parallel(linux). Aborting."; exit 1;}
+
+OS_NAME=$(uname -s)
+
+case "$OS_NAME" in
+  Linux*)
+      command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo apt install timeout;}
+      command -v parallel >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel by port install parallel(mac) or apt install parallel(linux). installing..."; sudo apt install parallel;}
+      ;;
+  Darwin*)
+      command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout;}
+      command -v parallel >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel by port install parallel(mac) or apt install parallel(linux). installing..."; sudo port install parallel;}
+      ;;
+  *)
+    ;;
+esac
 
 echo Please drop target address files
 

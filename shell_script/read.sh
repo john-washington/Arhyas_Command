@@ -1,6 +1,19 @@
 #!/bin/bash
- 
-PATH=$PATH:/opt/local/bin
+
+OS_NAME=$(uname -s)
+
+case "$OS_NAME" in
+  Linux*)
+    command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo apt install timeout;}
+    ;;
+  Darwin*)
+    command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout;}
+    ;;
+  *)
+    ;;
+esac
+
+PATH=$PATH:/opt/local/bin:/usr/bin
 export PATH
 
 csv_file="$1"
@@ -10,7 +23,7 @@ str_to_hex() {
     printf '%s' "$1" | od -An -t x1 | tr -d ' \n'
 }
 
-/opt/local/bin/timeout 15 ping -c 6 $host 
+timeout 15 ping -c 6 $host 
 status=$?
 
 if [ $status -eq 124 ]; then
