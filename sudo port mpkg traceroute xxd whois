@@ -1,0 +1,95 @@
+(base) jzhang@Johns-Mac-mini Arhyas_Command % sudo port mpkg traceroute xxd whois 
+Password:
+Warning: port definitions are more than two weeks old, consider updating them by running 'port selfupdate'.
+--->  Fetching archive for traceroute
+--->  Unpacking directory archive for traceroute 1.4a12_0
+--->  Creating pkg for traceroute version 0_1.4a12_0 at /opt/local/var/macports/build/traceroute-d6297db8/work/traceroute-1.4a12.pkg
+Error: Port xxd not found
+(base) jzhang@Johns-Mac-mini Arhyas_Command % sudo port mpkg whois                
+Warning: port definitions are more than two weeks old, consider updating them by running 'port selfupdate'.
+--->  Computing dependencies for libtextstyle
+--->  Fetching archive for libtextstyle
+--->  Attempting to fetch libtextstyle-0.22.5_0.darwin_21.x86_64.tbz2 from https://mirror.sjtu.edu.cn/macports/packages/libtextstyle
+--->  Attempting to fetch libtextstyle-0.22.5_0.darwin_21.x86_64.tbz2.rmd160 from https://mirror.sjtu.edu.cn/macports/packages/libtextstyle
+--->  Installing libtextstyle @0.22.5_0
+--->  Cleaning libtextstyle
+--->  Computing dependencies for libtextstyle
+--->  Deactivating libtextstyle @0.21_0
+--->  Cleaning libtextstyle
+--->  Activating libtextstyle @0.22.5_0
+--->  Cleaning libtextstyle                              
+--->  Computing dependencies for gettext-tools-libs
+--->  Fetching archive for gettext-tools-libs
+--->  Attempting to fetch gettext-tools-libs-0.22.5_0.darwin_21.x86_64.tbz2 from https://mirror.sjtu.edu.cn/macports/packages/gettext-tools-libs
+--->  Attempting to fetch gettext-tools-libs-0.22.5_0.darwin_21.x86_64.tbz2.rmd160 from https://mirror.sjtu.edu.cn/macports/packages/gettext-tools-libs
+--->  Installing gettext-tools-libs @0.22.5_0
+--->  Cleaning gettext-tools-libs
+--->  Computing dependencies for gettext-tools-libs
+--->  Deactivating gettext-tools-libs @0.21_0
+--->  Cleaning gettext-tools-libs
+--->  Activating gettext-tools-libs @0.22.5_0
+--->  Cleaning gettext-tools-libs                        
+--->  Computing dependencies for gettext
+--->  Fetching archive for gettext
+--->  Attempting to fetch gettext-0.22.5_0.darwin_21.x86_64.tbz2 from https://mirror.sjtu.edu.cn/macports/packages/gettext
+--->  Attempting to fetch gettext-0.22.5_0.darwin_21.x86_64.tbz2.rmd160 from https://mirror.sjtu.edu.cn/macports/packages/gettext
+--->  Installing gettext @0.22.5_0
+--->  Cleaning gettext
+--->  Computing dependencies for gettext
+--->  Deactivating gettext @0.21_0
+--->  Cleaning gettext                                   
+--->  Activating gettext @0.22.5_0
+--->  Cleaning gettext                                   
+--->  Computing dependencies for libunistring
+--->  Fetching archive for libunistring
+--->  Attempting to fetch libunistring-1.4.1_0.darwin_21.x86_64.tbz2 from https://mirror.sjtu.edu.cn/macports/packages/libunistring
+--->  Attempting to fetch libunistring-1.4.1_0.darwin_21.x86_64.tbz2.rmd160 from https://mirror.sjtu.edu.cn/macports/packages/libunistring
+--->  Installing libunistring @1.4.1_0
+--->  Cleaning libunistring
+--->  Computing dependencies for libunistring
+--->  Deactivating libunistring @1.0_0
+--->  Cleaning libunistring
+--->  Activating libunistring @1.4.1_0
+--->  Cleaning libunistring                              
+--->  Computing dependencies for libidn2
+--->  Fetching archive for libidn2
+--->  Attempting to fetch libidn2-2.3.8_0.darwin_21.x86_64.tbz2 from https://mirror.sjtu.edu.cn/macports/packages/libidn2
+--->  Attempting to fetch libidn2-2.3.8_0.darwin_21.x86_64.tbz2.rmd160 from https://mirror.sjtu.edu.cn/macports/packages/libidn2
+--->  Installing libidn2 @2.3.8_0
+--->  Cleaning libidn2
+--->  Computing dependencies for libidn2
+--->  Deactivating libidn2 @2.3.2_1
+--->  Cleaning libidn2                                   
+--->  Activating libidn2 @2.3.8_0
+--->  Cleaning libidn2
+--->  Computing dependencies for whois
+--->  Fetching archive for whois
+--->  Attempting to fetch whois-5.6.5_0.darwin_21.x86_64.tbz2 from https://mirror.sjtu.edu.cn/macports/packages/whois
+--->  Attempting to fetch whois-5.6.5_0.darwin_21.x86_64.tbz2.rmd160 from https://mirror.sjtu.edu.cn/macports/packages/whois
+--->  Unpacking tbz2 archive for whois 5.6.5_0
+--->  Creating pkg for whois version 0_5.6.5_0 at /opt/local/var/macports/build/whois-a1934e30/work/whois-5.6.5.pkg
+--->  Creating pkg for libiconv version 0_1.17_0 at /opt/local/var/macports/build/whois-a1934e30/work/mpkg_packages/libiconv-1.17.pkg
+--->  Creating pkg for ncurses version 0_6.6_0 at /opt/local/var/macports/build/whois-a1934e30/work/mpkg_packages/ncurses-6.6.pkg
+--->  Computing dependencies for libtextstyle
+--->  Fetching archive for libtextstyle
+--->  Unpacking directory archive for libtextstyle 0.22.5_0
+--->  Creating pkg for libtextstyle version 0_0.22.5_0 at /opt/local/var/macports/build/whois-a1934e30/work/mpkg_packages/libtextstyle-0.22.5.pkg
+--->  Computing dependencies for gettext-runtime
+--->  Creating pkg for gettext-runtime version 0_0.22.5_0 at /opt/local/var/macports/build/whois-a1934e30/work/mpkg_packages/gettext-runtime-0.22.5.pkg
+--->  Computing dependencies for gettext-tools-libs
+--->  Fetching archive for gettext-tools-libs
+--->  Unpacking directory archive for gettext-tools-libs 0.22.5_0
+--->  Creating pkg for gettext-tools-libs version 0_0.22.5_0 at /opt/local/var/macports/build/whois-a1934e30/work/mpkg_packages/gettext-tools-libs-0.22.5.pkg
+--->  Computing dependencies for gettext
+--->  Fetching archive for gettext
+--->  Unpacking directory archive for gettext 0.22.5_0
+--->  Creating pkg for gettext version 2_0.22.5_0 at /opt/local/var/macports/build/whois-a1934e30/work/mpkg_packages/gettext-0.22.5.pkg
+--->  Computing dependencies for libunistring
+--->  Fetching archive for libunistring
+--->  Unpacking directory archive for libunistring 1.4.1_0
+--->  Creating pkg for libunistring version 0_1.4.1_0 at /opt/local/var/macports/build/whois-a1934e30/work/mpkg_packages/libunistring-1.4.1.pkg
+--->  Computing dependencies for libidn2
+--->  Fetching archive for libidn2
+--->  Unpacking directory archive for libidn2 2.3.8_0
+--->  Creating pkg for libidn2 version 0_2.3.8_0 at /opt/local/var/macports/build/whois-a1934e30/work/mpkg_packages/libidn2-2.3.8.pkg
+(base) jzhang@Johns-Mac-mini Arhyas_Command % 

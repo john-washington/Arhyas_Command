@@ -1,4 +1,8 @@
 #!/bin/bash
+
+#PATH=$PATH:/opt/local/bin:/usr/bin:/usr/local/bin:/opt/local/sbin:/sbin
+#export $PATH
+
 host="$1"
 code="$2"
 

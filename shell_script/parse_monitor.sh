@@ -1,5 +1,8 @@
 #!/bin/bash
  
+#PATH=$PATH:/opt/local/bin:/usr/bin:/usr/local/bin:/opt/local/sbin:/sbin
+#export $PATH
+
 #echo $1
 OS_NAME=$(uname -s)
 

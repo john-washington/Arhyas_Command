@@ -1,0 +1,13 @@
+The Arhyas CommandTM project was created to defend against Psychotronic Mind/Body Abuse.
+
+To Install, first install the dependencies by running this script:
+
+./install.sh
+
+It would prompt you for your administrative password, enter it and hit enter to continue.
+
+The script would go through all the required dependencies and install them if they are not there.
+
+
+John Washington
+Feb 15, 2026

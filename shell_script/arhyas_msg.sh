@@ -1,6 +1,9 @@
 #command -v parallel >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel by port install parallel(mac) or apt install parallel(linux). Aborting."; exit 1;}
 
-#!/usr/bin/parallel -j24 --shebang-wrap /bin/bash
+#PATH=$PATH:/opt/local/bin:/usr/bin:/usr/local/bin:/opt/local/sbin:/sbin
+#export $PATH
+
+#!parallel  --shebang-wrap /bin/bash
 host="$1"
 language_code="$2"
 

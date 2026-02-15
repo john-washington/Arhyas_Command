@@ -1,0 +1,29 @@
+sudo port mpkg timeout parallel
+Warning: port definitions are more than two weeks old, consider updating them by running 'port selfupdate'.
+--->  Creating pkg for timeout version 0_1.19_0 at /opt/local/var/macports/build/timeout-9e04af4f/work/timeout-1.19.pkg
+--->  Package for timeout version 0_1.19_0 at /opt/local/var/macports/build/timeout-9e04af4f/work/timeout-1.19.pkg is up-to-date
+--->  Computing dependencies for parallel
+--->  Creating pkg for parallel version 0_20251122_0 at /opt/local/var/macports/build/parallel-cd710287/work/parallel-20251122.pkg
+--->  Package for parallel version 0_20251122_0 at /opt/local/var/macports/build/parallel-cd710287/work/parallel-20251122.pkg is up-to-date
+--->  Creating pkg for db48 version 0_4.8.30_5 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/db48-4.8.30_5.pkg
+--->  Package for db48 version 0_4.8.30_5 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/db48-4.8.30_5.pkg is up-to-date
+--->  Creating pkg for libiconv version 0_1.17_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/libiconv-1.17.pkg
+--->  Package for libiconv version 0_1.17_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/libiconv-1.17.pkg is up-to-date
+--->  Computing dependencies for gettext-runtime
+--->  Creating pkg for gettext-runtime version 0_0.22.5_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/gettext-runtime-0.22.5.pkg
+--->  Package for gettext-runtime version 0_0.22.5_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/gettext-runtime-0.22.5.pkg is up-to-date
+--->  Creating pkg for ncurses version 0_6.6_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/ncurses-6.6.pkg
+--->  Package for ncurses version 0_6.6_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/ncurses-6.6.pkg is up-to-date
+--->  Computing dependencies for readline
+--->  Creating pkg for readline version 0_8.2.013_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/readline-8.2.013.pkg
+--->  Package for readline version 0_8.2.013_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/readline-8.2.013.pkg is up-to-date
+--->  Computing dependencies for gdbm
+--->  Creating pkg for gdbm version 0_1.26_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/gdbm-1.26.pkg
+--->  Package for gdbm version 0_1.26_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/gdbm-1.26.pkg is up-to-date
+--->  Computing dependencies for perl5.34
+--->  Creating pkg for perl5.34 version 0_5.34.3_1 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/perl5.34-5.34.3_1.pkg
+--->  Package for perl5.34 version 0_5.34.3_1 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/perl5.34-5.34.3_1.pkg is up-to-date
+--->  Computing dependencies for perl5
+--->  Creating pkg for perl5 version 0_5.34.3_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/perl5-5.34.3.pkg
+--->  Package for perl5 version 0_5.34.3_0 at /opt/local/var/macports/build/parallel-cd710287/work/mpkg_packages/perl5-5.34.3.pkg is up-to-date
+(base) jzhang@Johns-Mac-mini Desktop % 
