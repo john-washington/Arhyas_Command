@@ -30,6 +30,9 @@ case "$OS_NAME" in
       echo $mypasswd | sudo -S installer -pkg Arhyas_Command.pkg -target / ; 
       echo $mypasswd | sudo -S installer -pkg Arhyas_Command_Monitor.pkg -target / ; 
       echo $mypasswd | sudo -S installer -pkg Arhyas_Command_pdf.pkg -target / ;
+      cd ~/Documents
+      git clone https://github.com/john-washington/Arhyas_Command
+      echo "created Arhyas_Command git clone in Documents Folder for later update process."
       ;;
   *)
     ;;
