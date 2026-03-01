@@ -12,7 +12,7 @@ Arhyas Command,
 R\sum_n=0^\inf,
 ϵ^*_mn,
 e^(I(ω_mnt-k_mn.r_m)), 
-phase conjugate->
+phase conjugate,
 6 Time Vectors,  
 -T1+T2=0,
 Free Soul Hijacks, 
