@@ -20,10 +20,15 @@ esac
 
 for i in {1..2048}
 do
+   echo "REFRESH\n"
    ps -ef | grep 'ping' |  ./parse_monitor.sh 
    SEC=$((RANDOM % 12))
    echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
    sleep $SEC
-   bash update.sh
+
+   if [[ $((i % 12)) -eq 0 ]]; then
+     echo "checking update..."
+     bash update.sh
+   fi
 done
 echo 'monitor stop, you can restart...'

@@ -40,7 +40,19 @@ else
     hex_string=$(str_to_hex "$field1")
     #ping -c $((RANDOM % 12)) -p "$hex_string" $host
     #echo ping -c 6 -p "$hex_string" $host
-    ping -c 6 -p "$hex_string" $host
+
+    echo "$hex_string"
+    #echo  -n 0x${hex_string} | xxd -r |  tr -d '\%' > decoded_msg
+    #echo $decoded_msg
+
+    wc_byte=$( echo "$hex_string" | wc -c )
+    echo "byte count: $wc_byte" 
+
+    if [[ $wc_byte -le 16 ]]; then
+      ping -c 6 -p "$hex_string" $host
+    else
+      echo "$field1 ecoded to $hex_string is too long for transmission, ignoring" | tee -a error.log
+    fi
     sleep $((RANDOM % 30))
   done < "$csv_file"
 fi

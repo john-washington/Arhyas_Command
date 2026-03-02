@@ -24,13 +24,25 @@ esac
 while IFS=' ' read -r field1 field2 field3 field4 field5 field6 field7 field8 field9 field10 field11 field12 field13;
 do
   echo ""
-  echo "sent to: $field13"
+  #echo "sent to: $field13"
   whois $field13 | grep -i country
   echo ""
   echo "mesage: $field12"
   echo ""
   echo "decoded to:"
   echo -n 0x${field12} | xxd -r |  tr -d '\%'
+
+  wc_byte=$( echo "$field12" | wc -c )
+  echo ""
+  echo "byte count: $wc_byte" 
+
+  if [[ $wc_byte -le 16 ]]; then
+      #ping -c 6 -p "$hex_string" $host
+       echo "was sent to: $field13"
+  else
+      echo "$field12 is too long for transmission, ignoring" | tee -a monitor_error.log
+  fi
+
 done < /dev/stdin
 
 
