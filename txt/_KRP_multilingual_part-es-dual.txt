@@ -1,22 +1,22 @@
-(Kristiac, Councils, of the Aurora, -Guardians of, the Spanner Gates),
-(Kristiac, Consejos, de la Aurora, -Guardianes de las Puertas Spanner),
+Kristiac, Councils, of the Aurora, -Guardians of, the Spanner Gates,
+Kristiac, Consejos, de la Aurora, -Guardianes de las Puertas Spanner,
 
 
-(Urtha-, AquafarE, Blue Dragons, -Aquatic-bird, -blue-humanid),
-(Urtha-, AquafarE, Dragones Azules, -Pájaro-acuático, -humano-azul),
+Urtha-, AquafarE, Blue Dragons, -Aquatic-bird, -blue-humanid,
+Urtha-, AquafarE, Dragones Azules, -Pájaro-acuático, -humano-azul,
 
 
-(Urtha-, AquafarE, Gold Dragons, -Winged-lion, -biped-humanid),
-(Urtha-, AquafarE, Dragones Dorados, -León-Alado, -Bípedo-humano),
+Urtha-, AquafarE, Gold Dragons, -Winged-lion, -biped-humanid,
+Urtha-, AquafarE, Dragones Dorados, -León-Alado, -Bípedo-humano,
 
 
-(Urtha-, AquafarE, Purple Dragons, -Breatharian, -white-humanid),
-(Urtha-, AquafarE, Dragones Púrpuras, -Breatharian, -Blanco-humanid),
+Urtha-, AquafarE, Purple Dragons, -Breatharian, -white-humanid,
+Urtha-, AquafarE, Dragones Púrpuras, -Breatharian, -Blanco-humanid,
 
 
 
-(breathe),
-(respira),
+breathe,
+respira,
 
 
 Bring forth now, the, Krystal River, of Eternal, 1st Creation,
@@ -31,8 +31,8 @@ Bring forth now, the Gentle, Wind-song, of the, Sacred Yunasun,
 Haz que aparezca ahora la Suave, Canción del Viento, del Sagrado Yunasun,
 
 
-(Central Sun of, the Yunasai, Inner Domain, Seed-Atom, yunasai),
-(Sol Central de, Yunasai, Dominio Interior, Átomo Semilla, Yunasai),
+Central Sun of, the Yunasai, Inner Domain, Seed-Atom, yunasai,
+Sol Central de, Yunasai, Dominio Interior, Átomo Semilla, Yunasai,
 
 
 Bring forth here, the, Radiant, Starlight, of the, Eternally, StarBorn.,
