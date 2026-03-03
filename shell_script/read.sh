@@ -26,6 +26,70 @@ str_to_hex() {
     printf '%s' "$1" | od -An -t x1 | tr -d ' \n'
 }
 
+split_send_sp() {
+  IFS=' '
+  wc_byte=$( echo "$2" | wc -c )
+    echo "byte count: $wc_byte" 
+
+    if [[ $wc_byte -le 16 ]]; then
+      ping -c 6 -p "$1" $host
+    else
+      
+      read -r -a hex_arry <<< "$2" 
+      
+      for part in "${hex_arry[@]}"; do
+        echo "part: $part"
+      
+        my_hex_string=$(str_to_hex "$part")
+
+        wc_byte2=$( echo "$part" | wc -c )
+        echo "byte count2: $wc_byte2" 
+
+        if [[ $wc_byte2 -le 16 ]]; then
+          ping -c 6 -p "$my_hex_string" $host
+        else
+           echo "warning: $part decoded to $my_hex_string is too long for transmission, spliting by - before sending..." | tee -a error.log
+           #ping -c 6 -p "$my_hex_string" $host | tee -a error.log
+           r=$(split_send_hp "$my_hex_string" "$part")
+        fi
+      done
+
+    fi
+    IFS=$' \t\n'
+}
+
+
+split_send_hp() {
+  IFS='-'
+  wc_byte=$( echo "$2" | wc -c )
+    echo "byte count: $wc_byte" 
+
+    if [[ $wc_byte -le 16 ]]; then
+      ping -c 6 -p "$1" $host
+    else
+      
+      read -r -a hex_arry <<< "$2" 
+      
+      for part in "${hex_arry[@]}"; do
+        echo "part: $part"
+      
+        my_hex_string=$(str_to_hex "$part")
+
+        wc_byte2=$( echo "$part" | wc -c )
+        echo "byte count2: $wc_byte2" 
+
+        if [[ $wc_byte2 -le 16 ]]; then
+          ping -c 6 -p "$my_hex_string" $host
+        else
+           echo "warning: $part decoded to $my_hex_string is too long for transmission, sending anyway..." | tee -a error.log
+           ping -c 6 -p "$my_hex_string" $host | tee -a error.log
+        fi
+      done
+
+    fi
+    IFS=$' \t\n'
+}
+
 timeout 15 ping -c 6 $host 
 status=$?
 
@@ -45,14 +109,18 @@ else
     #echo  -n 0x${hex_string} | xxd -r |  tr -d '\%' > decoded_msg
     #echo $decoded_msg
 
-    wc_byte=$( echo "$hex_string" | wc -c )
-    echo "byte count: $wc_byte" 
+    #wc_byte=$( echo "$hex_string" | wc -c )
+    #echo "byte count: $wc_byte" 
 
-    if [[ $wc_byte -le 16 ]]; then
-      ping -c 6 -p "$hex_string" $host
-    else
-      echo "$field1 ecoded to $hex_string is too long for transmission, ignoring" | tee -a error.log
-    fi
+    #if [[ $wc_byte -le 16 ]]; then
+    #  ping -c 6 -p "$hex_string" $host
+    #else
+      #echo "$field1 ecoded to $hex_string is too long for transmission, ignoring" | tee -a error.log
+      
+    #fi
+    
+    r=$(split_send_sp "$hex_string" "$field1")
+
     sleep $((RANDOM % 30))
   done < "$csv_file"
 fi

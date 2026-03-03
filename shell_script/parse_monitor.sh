@@ -29,10 +29,11 @@ do
   echo ""
   echo "mesage: $field12"
   echo ""
-  echo "decoded to:"
-  echo -n 0x${field12} | xxd -r |  tr -d '\%'
+  echo "decoded to: "
+  mycode=$(echo -n 0x${field12} | xxd -r |  tr -d '\%')
+  echo $mycode
 
-  wc_byte=$( echo "$field12" | wc -c )
+  wc_byte=$( echo "$mycode" | wc -c )
   echo ""
   echo "byte count: $wc_byte" 
 
