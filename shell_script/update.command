@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#read -s -p "please enter admin password:" mypasswd
-#echo
-
-mypasswd=$1
+read -s -p "please enter admin password:" mypasswd
+echo
 
 OS_NAME=$(uname -s)
 
@@ -36,7 +34,6 @@ case "$OS_NAME" in
       
       echo 'updating language files...' | tee -a arhyas_command.log
       rsync -avu "${TEMP_DIR}"/txt/ "${APP_RES_DIR}" | tee -a arhyas_command.log
-       
       echo 'update completed...' | tee -a arhyas_command.log
       
       #rm git.output

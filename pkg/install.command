@@ -34,22 +34,9 @@ case "$OS_NAME" in
       command -v logrotate >/dev/null 2>&1 || { echo >&2 "I require logrotate but it is not installed. Please install logrotate by port install logrotate(mac) or apt install logrotate(linux). installing..."; echo $mypasswd | sudo -S port install logrotate; }
      
       echo $mypasswd | sudo -S installer -pkg Arhyas_Command.pkg -target / ; 
-      #echo $mypasswd | sudo -S installer -pkg Arhyas_Command_Monitor.pkg -target / ; 
+      echo $mypasswd | sudo -S installer -pkg Arhyas_Command_Monitor.pkg -target / ; 
       #echo $mypasswd | sudo -S installer -pkg Arhyas_Command_pdf.pkg -target / ;
       bash git_clone_init.sh
-      APP_DIR=/Applications/
-      APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-      cd "$APP_RES_DIR"
-      echo $mypasswd | sudo -S ln -s "$APP_RES_DIR"/monitor.command "$APP_DIR"/monitor.command
-      echo $mypasswd | sudo -S ln -s "$APP_RES_DIR"/update.command "$APP_DIR"/update.command
-
-      #figure out ways to see all the log files:
-
-      #figure out ways to see all the target files:, best practise should probably keep data files in app standard location
-      
-
-      #figure out how to attach icon image to the linked file executable
-
       ;;
   *)
     ;;

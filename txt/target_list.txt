@@ -1,13 +1,17 @@
-www.minneapolismn.gov
-www.fletc.gov
-www.whitehouse.gov
-www.government.ru
-www.president.gov.ua
-www.kmu.gov.ua
-mod.gov.ua
-www.rada.gov.ua
-www.gov.il
-www.pmo.pna.ps
-www.pcbs.gov.ps
-www.palestinecabinet.gov.ps
-www.lingnan.edu.cn
+www.minneapolismn.gov en
+www.fletc.gov en
+www.whitehouse.gov en
+www.government.ru ru
+www.president.gov.ua uk
+www.kmu.gov.ua uk
+mod.gov.ua uk
+www.rada.gov.ua uk
+www.gov.il en
+www.pmo.pna.ps ar
+www.pcbs.gov.ps ar
+www.palestinecabinet.gov.ps ar
+www.lingnan.edu.cn zh
+gov.il he
+mod.gov.il he
+israel-entry.piba.gov.il he
+
