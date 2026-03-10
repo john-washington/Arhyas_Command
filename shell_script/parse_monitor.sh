@@ -10,10 +10,14 @@ case "$OS_NAME" in
   Linux*)
     command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by port install xxd(mac) or apt install xxd(linux). installing..."; sudo apt install xxd; }
     command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo apt install whois; }
+    command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo apt install curl; }
+   
     ;;
   Darwin*)
     command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by port install xxd(mac) or apt install xxd(linux). installing..."; sudo port install xxd; }
     command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo port install whois; }
+    command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo port install curl; }
+    
     ;;
   *)
     ;;
@@ -41,7 +45,7 @@ do
       #ping -c 6 -p "$hex_string" $host
        echo "was sent to: $field13"
   else
-      echo "$field12 is too long for transmission, ignoring" | tee -a monitor_error.log
+      echo "$field12 is too long for transmission, sended anyway" | tee -a monitor_error.log
   fi
 
 done < /dev/stdin

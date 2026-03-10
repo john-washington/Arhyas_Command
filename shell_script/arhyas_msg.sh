@@ -10,33 +10,62 @@
 host="$1"
 language_code="$2"
 
+
+OS_NAME=$(uname -s)
+
+case "$OS_NAME" in
+  Linux*)
+      TEMP_DIR=~/Documents/Arhyas_Command
+      APP_RES_DIR=~/Arhyas_Command
+      data_dir=../txt
+      command -v git >/dev/null 2>&1 || { echo >&2 "I require git but it is not installed. Please install git by apt install git(linux). installing..."; echo $mypasswd | sudo -S apt install git | tee -a "${APP_RES_DIR}"/arhyas_command.log; }
+      command -v logrotate >/dev/null 2>&1 || { echo >&2 "I require logrotate but it is not installed. Please install logrotate by port install logrotate(mac) or apt install logrotate(linux). installing..."; echo $mypasswd | sudo -S apt install logrotate | tee -a "${APP_RES_DIR}"/arhyas_command.log; }
+     
+      ;;
+  Darwin*)
+      TEMP_DIR=~/Documents/Arhyas_Command
+      APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+      command -v git >/dev/null 2>&1 || { echo >&2 "I require git but it is not installed. Please install git by port install git(mac). installing..."; echo $mypasswd | sudo -S port install git | tee -a "${APP_RES_DIR}"/arhyas_command.log; }
+      command -v logrotate >/dev/null 2>&1 || { echo >&2 "I require logrotate but it is not installed. Please install logrotate by port install logrotate(mac) or apt install logrotate(linux). installing..."; echo $mypasswd | sudo -S port install logrotate | tee -a "${APP_RES_DIR}"/arhyas_command.log; }
+      data_dir="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+       ;;
+  *)
+    ;;
+esac
+
+
+
 echo "PROGRESS:0"
+
+#echo "logging the ip location"
+#result=$(curl "https://ip-api.com/docs/api:csv/$host/?")
+#echo $result >> $host.csv
 
 echo "processing IP: $host"
 echo "_ELAi_sa_sequence..."
 
-bash read.sh _ELAi_sa_sequence.csv $host &
+bash read.sh "${data_dir}/_ELAi_sa_sequence.csv" $host &
 
 echo "PROGRESS:10"
 echo "_AL_Hum_Bhra_sequence1..."
-bash read.sh _AL_Hum_Bhra_sequence1.csv $host &
+bash read.sh "${data_dir}/_AL_Hum_Bhra_sequence1.csv" $host &
 
 echo "PROGRESS:20"
 echo "_AL_Hum_Bhra_sequence2..."
-bash read.sh _AL_Hum_Bhra_sequence2.csv $host &
+bash read.sh "${data_dir}/_AL_Hum_Bhra_sequence2.csv" $host &
 
 
 echo "PROGRESS:30"
 echo "_KRP_sequence...";
 #sh read.sh _KRP_sequence.csv "$1" &
-bash read.sh _KRP_sequence_beginning.txt $host &
+bash read.sh "${data_dir}/_KRP_sequence_beginning.txt" $host &
 
 echo "PROGRESS:40"
 echo "_KRP_sequence mulitilingual part";
 KRP_multilingual_part_filename="_KRP_multilingual_part-${language_code}-dual.txt"
-bash read.sh ${KRP_multilingual_part_filename} $host &
+bash read.sh "${data_dir}/${KRP_multilingual_part_filename}" $host &
 
-bash read.sh _KRP_ending.txt $host &
+bash read.sh "${data_dir}/_KRP_ending.txt" $host &
 
 echo "PROGRESS:50"
 echo "_KRP_Elemental_Command_sequence..."
@@ -46,16 +75,16 @@ KRP_elemental_command_multilingual_part_filename="_KRP_Elemental_Command_sequenc
 
 echo "PROGRESS:60"
 echo "_KRP_Elemental_Command_sequence_multilingual_part..."
-bash read.sh ${KRP_elemental_command_multilingual_part_filename} $host &
+bash read.sh "${data_dir}/${KRP_elemental_command_multilingual_part_filename}" $host &
 
 echo "PROGRESS:70"
 echo "_12_Strand_DNA_Tribal_Shield_sequence..."
-bash read.sh _12_Strand_DNA_Tribal_Shield_sequence.csv $host &
+bash read.sh "${data_dir}/_12_Strand_DNA_Tribal_Shield_sequence.csv" $host &
 
 echo "PROGRESS:80"
 ARHYAS_COMMAND_multilingual="_Arhyas_Command_sequence-${language_code}-dual.txt"
 echo "_Arhyas_Command_sequence..."
-bash read.sh ${ARHYAS_COMMAND_multilingual} $host &
+bash read.sh "${data_dir}/${ARHYAS_COMMAND_multilingual}" $host &
 echo "PROGRESS:100"
 echo "Done"
 

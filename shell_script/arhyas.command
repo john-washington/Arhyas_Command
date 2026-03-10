@@ -6,7 +6,6 @@
 #read mypasswd
 #perl arhyas_command_mac.pl
 
-target=$1
 
 OS_NAME=$(uname -s)
 
@@ -29,7 +28,7 @@ case "$OS_NAME" in
      
       command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by brew install xxd(mac) or apt install xxd(linux).  please run dependency_check.sh. existing...";  brew install xxd; }
       command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux).  please run dependency_check.sh. existing...";  port install whois;  }
-      data_dir="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+      data_dir=../txt
       ;;
   *)
     ;;
@@ -42,11 +41,20 @@ echo Please drop target address files
 for i in {1..12}
 do
       echo "Round ${i}"
-      cat "${target}" | xargs -n 2 bash ./timeout.sh 
-  
-      #find ${data_dir} -type f -name '*trace_result.txt' -print0 | xargs -0 cat > ${data_dir}/"${target}"_total_trace.txt
-      #./ip-api.sh -b ${data_dir}/www.x.com_trace_result.txt > ${data_dir}/"${target}"_total_trace_geo_data.csv
-      
+      #take care of the target first
+      #traceroute may not show the target, so do the rest secondly
+      #./arhyas_msg.sh "$1" && traceroute "$1" | ./tracelist.sh | xargs -I {} ./arhyas_msg.sh {}
+      #cat "$1" | xargs -I {} ./arhyas_msg.sh {} && xargs -I {} traceroute {} | ./tracelist.sh | xargs -I {} ./arhyas_msg.sh {} 
+      #wc -l "$1"
+      #cat "$1" | xargs -n 2 sh ./arhyas_msg.sh 
+      cat "$1" | xargs -n 2 bash ./timeout.sh 
+      #&& xargs -I {} traceroute {} | ./tracelist.sh | xargs -n 2 {} ./arhyas_msg.sh {} 
+      #PID=$!
+      #wait $PID
+
+      find ${data_dir} -type f -name '*trace_result.txt' -print0 | xargs -0 cat > ${data_dir}/output_cat_trace.txt
+      cat ${data_dir}/output_cat_trace.txt | ip-api.sh -b
+
       SEC=$((RANDOM % 2000))
       echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
       sleep $SEC

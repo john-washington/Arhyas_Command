@@ -48,7 +48,7 @@ split_send_sp() {
         if [[ $wc_byte2 -le 16 ]]; then
           ping -c 6 -p "$my_hex_string" $host
         else
-           echo "warning: $part encoded to $my_hex_string is too long for transmission, sending anyway..." | tee -a error.log
+           echo "warning: $part encoded to $my_hex_string is too long for transmission, try sending anyway..." | tee -a error.log
            ping -c 6 -p "$my_hex_string" $host | tee -a error.log
            #r=$(split_send_hp "$my_hex_string" "$part")
         fi
@@ -81,7 +81,7 @@ split_send_hp() {
         if [[ $wc_byte2 -le 16 ]]; then
           ping -c 6 -p "$my_hex_string" $host | tee -a arhyas_command.log
         else
-           echo "warning: $part encoded to $my_hex_string is too long for transmission, sending anyway..." | tee -a error.log
+           echo "warning: $part encoded to $my_hex_string is too long for transmission, sending..." | tee -a error.log
            ping -c 6 -p "$my_hex_string" $host | tee -a error.log
            #r=$(split_send_sp "$my_hex_string" "$part")
         fi
