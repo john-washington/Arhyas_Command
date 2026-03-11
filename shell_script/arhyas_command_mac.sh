@@ -47,7 +47,7 @@ do
       #find ${data_dir} -type f -name '*trace_result.txt' -print0 | xargs -0 cat > ${data_dir}/"${target}"_total_trace.txt
       #./ip-api.sh -b ${data_dir}/www.x.com_trace_result.txt > ${data_dir}/"${target}"_total_trace_geo_data.csv
       
-      SEC=$((RANDOM % 2000))
+      SEC=$((RANDOM % 60))
       echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
       sleep $SEC
 done
