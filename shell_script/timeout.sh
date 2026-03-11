@@ -35,21 +35,20 @@ esac
 PATH=$PATH:/opt/local/bin:/usr/bin
 export PATH
 
-found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
+#found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
 
-if [[ -z $found ]]; then
-	traceroute  $host |  bash ./tracelist.sh > "${data_dir}/${host}_trace_result.txt"
+if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
+	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${APP_RES_DIR}/arhyas_command.log"
 else
-	echo "${data_dir}/${host}_trace_result.txt already exist" | tee -a "${APP_RES_DIR}/arhyas_command.log"
+	traceroute  $host |  bash ./tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 fi
 
-found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.csv" ) 
+#found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.csv" ) 
 
-if [[ -z $found1 ]]; then
-	bash ./ip-api.sh -b "${data_dir}/${host}_trace_result.txt" | tee -a "${APP_RES_DIR}/arhyas_command.log"
-
+if [ -f  "${data_dir}/${host}_trace_result.txt_geo_data.csv" ] && [ $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.csv") -gt 2]; then
+	echo "${data_dir}/${host}_trace_result.txt_geo_data.csv already exist and not empty" | tee -a "${APP_RES_DIR}/arhyas_command.log"
 else
-	echo "${data_dir}/${host}_trace_result.txt_geo_data.csv already exist" | tee -a "${APP_RES_DIR}/arhyas_command.log"
+	bash ./ip-api.sh -b "${data_dir}/${host}_trace_result.txt" | tee -a "${APP_RES_DIR}/arhyas_command.log"
 fi
 
 timeout 15 ping -c 6 $host
