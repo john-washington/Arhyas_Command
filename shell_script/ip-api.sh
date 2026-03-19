@@ -3,8 +3,8 @@
 #PATH=$PATH:/opt/local/bin:/usr/bin:/usr/local/bin:/opt/local/sbin:/sbin
 #export $PATH
 
-hostlist="$2"
-#code="$2"
+inputfile="$2"
+
 
 OS_NAME=$(uname -s)
 
@@ -33,13 +33,13 @@ PATH=$PATH:/opt/local/bin:/usr/bin
 export PATH
 
 
-args=`getopt abo: $*`
+args=`getopt abs: $*`
 
 # you should not use `getopt abo: "$@"` since that would parse
 # the arguments differently from what the set command below does.
 if [ $? -ne 0 ]; then
       
-       echo "Usage: ip-api.sh -b <list file> for batch or ip-api.sh -s <target> for single target"
+       echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -g <inputfilele> for gis circle search api"
        exit 2
 fi
 set -- $args
@@ -54,23 +54,39 @@ while :; do
                #build list string here
                echo $hostlist
 
-               build_list=$(cat "$hostlist" | jq -R . | jq -s . )
+               build_list=$(cat "$inputfile" | jq -R . | jq -s . )
 
                command_str="curl http://ip-api.com/batch --data '${build_list}'"
                echo ${command_str}
-               eval "${command_str} > '${hostlist}_geo_data.csv'"
+               eval "${command_str} | jq . > '${inputfile}_geo_data.csv'"
 
                shift;
                ;;
        -s)
                echo "oarg is '$2'"; oarg="$2"
-               output=$(curl http://ip-api.com/csv/$hostlist)
+        #       output=$(curl http://ip-api.com/csv/$hostlist)
+	#       echo $output >> "$hostlist.csv"
+        #       shift; 
+        #       ;;
+       
+                echo "calling gis api"
+                while IFS=' ' read -r lat lon radius language_code;
+                  do
+                    echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
+                   
+                    command_str="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
+                    echo ${command_str}
+                    eval "${command_str} | jq . > center_${lat}_${lon}_${radius}.json"
+                  
 
-	       echo $output >> "$hostlist.csv"
-               shift; 
-               ;;
+                    command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
+                    echo ${command_str2}
+                    eval "${command_str2} | jq . > center_${lat}_${lon}_${language_code}_${radius}.json"
+                  done < "$inputfile"
+                shift;
+                ;;
        --)
-               echo "Usage: ip-api.sh -b <list file> for batch or ip-api.sh -s <target> for single target"
+               echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -s <inputfilele> for gis circle search api"
                shift; break
                ;;
        esac

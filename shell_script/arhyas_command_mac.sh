@@ -29,6 +29,8 @@ case "$OS_NAME" in
      
       command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by brew install xxd(mac) or apt install xxd(linux).  please run dependency_check.sh. existing...";  brew install xxd; }
       command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux).  please run dependency_check.sh. existing...";  port install whois;  }
+      #command -v csvcut >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install csvcut(mac) or apt install csvcut(linux).  please run dependency_check.sh. existing...";  port install csvcut;  }
+      
       data_dir="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
       ;;
   *)
@@ -38,20 +40,30 @@ esac
 echo Please drop target address files
 
 #read target_addr
+column_count=$(head -1 "${target}" | tr -cd ' ' | wc -c | awk '{print $1+1}' )
 
-for i in {1..12}
-do
-      echo "Round ${i}"
-      cat "${target}" | xargs -n 2 bash ./timeout.sh 
-  
-      #find ${data_dir} -type f -name '*trace_result.txt' -print0 | xargs -0 cat > ${data_dir}/"${target}"_total_trace.txt
-      #./ip-api.sh -b ${data_dir}/www.x.com_trace_result.txt > ${data_dir}/"${target}"_total_trace_geo_data.csv
-      
-      SEC=$((RANDOM % 60))
-      echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
-      sleep $SEC
-done
+if [ $column_count -eq 4 ]; then
+  bash ./ip-api.sh -s "${target}" | tee -a "${data_dir}/arhyas_command.log"
+        
+elif [ $column_count -eq 2 ]; then
 
-echo I have run the process 12 times. You can restart or quit.
-echo Thank you for using the program to stop Psychotronic Abuse!
-echo Please provide feedback if you would.
+  for i in {1..12}
+  do
+        echo "Round ${i}"
+        cat "${target}" | xargs -n 2 bash ./timeout.sh 
+    
+        #find ${data_dir} -type f -name '*trace_result.txt' -print0 | xargs -0 cat > ${data_dir}/"${target}"_total_trace.txt
+        #./ip-api.sh -b ${data_dir}/www.x.com_trace_result.txt > ${data_dir}/"${target}"_total_trace_geo_data.csv
+        
+        SEC=$((RANDOM % 60))
+        echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
+        sleep $SEC
+  done
+
+  echo I have run the process 12 times. You can restart or quit.
+  echo Thank you for using the program to stop Psychotronic Abuse!
+  echo Please provide feedback if you would.
+else
+  echo Invalid number of columns in input file. Exiting...
+  exit 0;
+fi
