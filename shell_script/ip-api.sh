@@ -13,15 +13,19 @@ case "$OS_NAME" in
 		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo apt install timeout; }
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo apt install traceroute; }
 		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jp but it is not installed. Please install jp by: port install jp(mac) or apt install jp(linux). installing..."; sudo apt install jq; }
+                data_dir=../data
+                text_dir=../txt
+                log_dir=../log
                
-                data_dir=../txt
                 ;;
 	Darwin*)
 		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout; }
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo port install traceroute; }
 		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jp but it is not installed. Please install jp by: port install jp(mac) or apt install jp(linux). installing..."; sudo port install jq; }
-                data_dir="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-                
+                APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+                data_dir="${APP_RES_DIR}/data"
+                text_dir="${APP_RES_DIR}"
+                log_dir="${APP_RES_DIR}/log"
                 ;;
 	*)
 		;;
@@ -32,6 +36,8 @@ esac
 PATH=$PATH:/opt/local/bin:/usr/bin
 export PATH
 
+mkdir -p "${log_dir}"
+mkdir -p "${data_dir}"
 
 args=`getopt abs: $*`
 
@@ -56,19 +62,15 @@ while :; do
 
                build_list=$(cat "$inputfile" | jq -R . | jq -s . )
 
-               command_str="curl http://ip-api.com/batch --data '${build_list}'"
+               command_str="curl http://ip-api.com/batch --data '${build_list}' | jq . > '${inputfile}_geo_data.json'"
                echo ${command_str}
-               eval "${command_str} | jq . > '${inputfile}_geo_data.csv'"
+               eval "${command_str}"
 
                shift;
                ;;
        -s)
                echo "oarg is '$2'"; oarg="$2"
-        #       output=$(curl http://ip-api.com/csv/$hostlist)
-	#       echo $output >> "$hostlist.csv"
-        #       shift; 
-        #       ;;
-       
+        
                 echo "calling gis api"
                 while IFS=' ' read -r lat lon radius language_code;
                   do
@@ -76,12 +78,12 @@ while :; do
                    
                     command_str="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
                     echo ${command_str}
-                    eval "${command_str} | jq . > center_${lat}_${lon}_${radius}.json"
+                    eval "${command_str} | jq . > '${data_dir}/center_${lat}_${lon}_${radius}.json'"
                   
 
                     command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
                     echo ${command_str2}
-                    eval "${command_str2} | jq . > center_${lat}_${lon}_${language_code}_${radius}.json"
+                    eval "${command_str2} | jq . > '${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.json'"
                   done < "$inputfile"
                 shift;
                 ;;

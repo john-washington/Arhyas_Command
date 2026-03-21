@@ -16,7 +16,7 @@ case "$OS_NAME" in
       command -v parallel >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel by  apt install parallel(linux).  please run dependency_check.sh. install...";  sudo apt install parallel;}
       command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by or apt install xxd(linux).  please run dependency_check.sh. installing...";  sudo apt install xxd; }
       command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by apt install whois(linux).  please run dependency_check.sh. installed...";  sudo apt install whois;}
-      data_dir=../txt
+      log_dir=../log
       ;;
   Darwin*)
       command -v port >/dev/null 2>&1 || { echo >&2 "I require port but it is not installed. Please install port. installing..."; bash ./install_port.sh; }
@@ -31,19 +31,21 @@ case "$OS_NAME" in
       command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux).  please run dependency_check.sh. existing...";  port install whois;  }
       #command -v csvcut >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install csvcut(mac) or apt install csvcut(linux).  please run dependency_check.sh. existing...";  port install csvcut;  }
       
-      data_dir="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+      APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+      log_dir="${APP_RES_DIR}/log"
       ;;
   *)
     ;;
 esac
 
+mkdir -p "${log_dir}"
 echo Please drop target address files
 
 #read target_addr
 column_count=$(head -1 "${target}" | tr -cd ' ' | wc -c | awk '{print $1+1}' )
 
 if [ $column_count -eq 4 ]; then
-  bash ./ip-api.sh -s "${target}" | tee -a "${data_dir}/arhyas_command.log"
+  bash ./ip-api.sh -s "${target}" | tee -a "${log_dir}/arhyas_command.log"
         
 elif [ $column_count -eq 2 ]; then
 
