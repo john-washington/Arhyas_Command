@@ -11,7 +11,7 @@ case "$OS_NAME" in
    
     APP_RES_DIR=~/Arhyas_Command
     data_dir=../data
-    text_dir=../txt
+    txt_dir=../txt
     log_dir=../log
     ;;
   Darwin*)
@@ -19,7 +19,7 @@ case "$OS_NAME" in
    
     APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
     data_dir="${APP_RES_DIR}/data"
-    text_dir="${APP_RES_DIR}"
+    txt_dir="${APP_RES_DIR}"
     log_dir="${APP_RES_DIR}/log"
     ;;
   *)

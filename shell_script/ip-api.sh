@@ -14,7 +14,7 @@ case "$OS_NAME" in
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo apt install traceroute; }
 		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jp but it is not installed. Please install jp by: port install jp(mac) or apt install jp(linux). installing..."; sudo apt install jq; }
                 data_dir=../data
-                text_dir=../txt
+                txt_dir=../txt
                 log_dir=../log
                
                 ;;
@@ -24,7 +24,7 @@ case "$OS_NAME" in
 		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jp but it is not installed. Please install jp by: port install jp(mac) or apt install jp(linux). installing..."; sudo port install jq; }
                 APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
                 data_dir="${APP_RES_DIR}/data"
-                text_dir="${APP_RES_DIR}"
+                txt_dir="${APP_RES_DIR}"
                 log_dir="${APP_RES_DIR}/log"
                 ;;
 	*)
