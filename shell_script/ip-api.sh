@@ -79,11 +79,20 @@ while :; do
                     command_str="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
                     echo ${command_str}
                     eval "${command_str} | jq . > '${data_dir}/center_${lat}_${lon}_${radius}.json'"
-                  
+                    
+                    jq '.[] | .ip_range_start' "${data_dir}/center_${lat}_${lon}_${radius}.json" | tr -d '"' > "${data_dir}/center_${lat}_${lon}_${radius}.txt"
+                    cat "${data_dir}/center_${lat}_${lon}_${radius}.txt" | xargs bash ./timeout2.sh 
 
-                    command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
-                    echo ${command_str2}
-                    eval "${command_str2} | jq . > '${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.json'"
+                    #command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
+                    #echo ${command_str2}
+                    #eval "${command_str2} | jq . > '${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.json'"
+                  
+                    #jq '.[] | .network' "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.json" | tr -d '"' > "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt"
+                    #this one we need to text process <ip/rang> into some ip
+                    #cat "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" | xargs  bash ./timeout2.sh 
+                   
+
+
                   done < "$inputfile"
                 shift;
                 ;;
