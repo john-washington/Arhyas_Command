@@ -121,7 +121,7 @@ else
     echo "$hex_string"
     r=$(split_send_hp "$hex_string" "$field1")
     r1=$(split_send_sp "$hex_string" "$field1")
-    sleep $((RANDOM % 30))
+    sleep $((RANDOM % 60))
   done < "$csv_file"
 fi
 exit 0
