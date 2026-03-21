@@ -12,7 +12,7 @@ case "$OS_NAME" in
 	Linux*)
 		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo apt install timeout; }
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo apt install traceroute; }
-		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jp but it is not installed. Please install jp by: port install jp(mac) or apt install jp(linux). installing..."; sudo apt install jq; }
+		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; sudo apt install jq; }
                 data_dir=../data
                 txt_dir=../txt
                 log_dir=../log
@@ -21,7 +21,7 @@ case "$OS_NAME" in
 	Darwin*)
 		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout; }
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo port install traceroute; }
-		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jp but it is not installed. Please install jp by: port install jp(mac) or apt install jp(linux). installing..."; sudo port install jq; }
+		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; sudo port install jq; }
                 APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
                 data_dir="${APP_RES_DIR}/data"
                 txt_dir="${APP_RES_DIR}"
@@ -58,9 +58,8 @@ while :; do
                echo "flag $1 set"; 
                #sflags="${1#-}$sflags"
                #build list string here
-               echo $hostlist
-
-               build_list=$(cat "$inputfile" | jq -R . | jq -s . )
+               echo "${inputfile}"
+               build_list=$(cat "${inputfile}" | jq -R . | jq -s . )
 
                command_str="curl http://ip-api.com/batch --data '${build_list}' | jq . > '${inputfile}_geo_data.json'"
                echo ${command_str}
@@ -81,11 +80,11 @@ while :; do
                     eval "${command_str} | jq . > '${data_dir}/center_${lat}_${lon}_${radius}.json'"
                     
                     jq '.[] | .ip_range_start' "${data_dir}/center_${lat}_${lon}_${radius}.json" | tr -d '"' > "${data_dir}/center_${lat}_${lon}_${radius}.txt"
-                    cat "${data_dir}/center_${lat}_${lon}_${radius}.txt" | xargs bash ./timeout2.sh 
+                    cat "${data_dir}/center_${lat}_${lon}_${radius}.txt" |  bash ./append_code.sh  "${language_code}" | xargs -n 2  bash ./timeout2.sh 
 
-                    #command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
-                    #echo ${command_str2}
-                    #eval "${command_str2} | jq . > '${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.json'"
+                    command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=1000'"
+                    echo ${command_str2}
+                    eval "${command_str2} | jq . > '${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.json'"
                   
                     #jq '.[] | .network' "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.json" | tr -d '"' > "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt"
                     #this one we need to text process <ip/rang> into some ip

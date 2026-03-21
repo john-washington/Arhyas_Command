@@ -52,38 +52,72 @@ mkdir -p "${log_dir}"
 echo "processing IP: $host"
 echo "_ELAi_sa_sequence..."
 
-bash read.sh "${txt_dir}/_ELAi_sa_sequence.csv" $host &
+found=$(find "${txt_dir}" -type f -name "_ELAi_sa_sequence.csv" )
+if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+      echo "${txt_dir}/_ELAi_sa_sequence.csv" "not found"
+else
+      bash read.sh "${txt_dir}/_ELAi_sa_sequence.csv" $host &
+fi
 
 echo "PROGRESS:10"
 echo "_AL_Hum_Bhra_sequence1..."
-bash read.sh "${txt_dir}/_AL_Hum_Bhra_sequence1.csv" $host &
+found=$(find "${txt_dir}" -type f -name "_AL_Hum_Bhra_sequence1.csv" )
+if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+      echo "${txt_dir}/_AL_Hum_Bhra_sequence1.csv" "not found"
+else
+      bash read.sh "${txt_dir}/_AL_Hum_Bhra_sequence1.csv" $host &
+fi
 
 echo "PROGRESS:20"
 echo "_AL_Hum_Bhra_sequence2..."
-bash read.sh "${txt_dir}/_AL_Hum_Bhra_sequence2.csv" $host &
-
+found=$(find "${txt_dir}" -type f -name "_AL_Hum_Bhra_sequence2.csv" )
+if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+      echo "${txt_dir}/_AL_Hum_Bhra_sequence2.csv" "not found"
+else
+      bash read.sh "${txt_dir}/_AL_Hum_Bhra_sequence2.csv" $host &
+fi
 
 echo "PROGRESS:30"
 echo "_KRP_sequence...";
 #sh read.sh _KRP_sequence.csv "$1" &
-bash read.sh "${txt_dir}/_KRP_sequence_beginning.txt" $host &
+found=$(find "${txt_dir}" -type f -name "_KRP_sequence_beginning.txt" )
+
+if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+      echo "${txt_dir}/_KRP_sequence_beginning.txt" "not found"
+else
+      bash read.sh "${txt_dir}/_KRP_sequence_beginning.txt" $host &
+fi
 
 echo "PROGRESS:40"
 echo "_KRP_sequence mulitilingual part";
 KRP_multilingual_part_filename="_KRP_multilingual_part-${language_code}-dual.txt"
-bash read.sh "${txt_dir}/${KRP_multilingual_part_filename}" $host &
+
+found=$(find "${txt_dir}" -type f -name "_KRP_multilingual_part-${language_code}-dual.txt" )
+
+if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+      echo "${txt_dir}/_KRP_multilingual_part-${language_code}-dual.txt" "not found"
+else
+      bash read.sh "${txt_dir}/_KRP_multilingual_part-${language_code}-dual.txt" $host &
+fi
 
 bash read.sh "${txt_dir}/_KRP_ending.txt" $host &
 
 echo "PROGRESS:50"
 echo "_KRP_Elemental_Command_sequence..."
+
 #sh read.sh _KRP_Elemental_Command_sequence.csv "$1" &
 
 KRP_elemental_command_multilingual_part_filename="_KRP_Elemental_Command_sequence-${language_code}-dual.txt"
 
 echo "PROGRESS:60"
 echo "_KRP_Elemental_Command_sequence_multilingual_part..."
-bash read.sh "${txt_dir}/${KRP_elemental_command_multilingual_part_filename}" $host &
+
+found=$(find "${txt_dir}" -type f -name "_KRP_Elemental_Command_sequence-${language_code}-dual.txt")
+if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+      echo "${txt_dir}/_KRP_Elemental_Command_sequence-${language_code}-dual.txt"  "not found"
+else
+      bash read.sh "${txt_dir}/_KRP_Elemental_Command_sequence-${language_code}-dual.txt" $host &
+fi
 
 echo "PROGRESS:70"
 echo "_12_Strand_DNA_Tribal_Shield_sequence..."
@@ -92,7 +126,12 @@ bash read.sh "${txt_dir}/_12_Strand_DNA_Tribal_Shield_sequence.csv" $host &
 echo "PROGRESS:80"
 ARHYAS_COMMAND_multilingual="_Arhyas_Command_sequence-${language_code}-dual.txt"
 echo "_Arhyas_Command_sequence..."
-bash read.sh "${txt_dir}/${ARHYAS_COMMAND_multilingual}" $host &
+found=$(find "${txt_dir}" -type f -name "_Arhyas_Command_sequence-${language_code}-dual.txt")
+if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+      echo "${txt_dir}/_Arhyas_Command_sequence-${language_code}-dual.txt"  "not found"
+else
+      bash read.sh "${txt_dir}/_Arhyas_Command_sequence-${language_code}-dual.txt" $host &
+fi
 echo "PROGRESS:100"
 echo "Done"
 
