@@ -1,0 +1,16 @@
+www.ucla.edu en
+www.cghtech.com en
+www.uchicago.edu en
+cuhk.edu.hk zh
+cuhk.edu.hk en
+www.hku.hk zh
+www.hku.hk en
+www.x.com en
+www.x.com ar
+www.x.com he
+www.x.com fr
+www.x.com uk
+www.x.com ru
+www.x.com jp
+www.x.com zh
+
