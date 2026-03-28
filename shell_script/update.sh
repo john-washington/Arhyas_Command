@@ -37,20 +37,20 @@ cd "${TEMP_DIR}"/txt
 
 #capture both stdout and stderrr
 #OUTPUT=$(git pull 2>&1)
-git config pull.rebase false | tee -a "${log_dir}"/arhyas_command.log
-git pull > git.output | tee -a "${log_dir}"/arhyas_command.log
+git config pull.rebase false | tee -a "${log_dir}"/Arhyas_Command.log
+git pull > git.output | tee -a "${log_dir}"/Arhyas_Command.log
 
 status=$?
-echo "git pull status: ${status}" | tee -a "${log_dir}"/arhyas_command.log
+echo "git pull status: ${status}" | tee -a "${log_dir}"/Arhyas_Command.log
 
-grep 'Updating' git.output >/dev/null 2>&1 || { echo >&2 'no new update' | tee -a "${log_dir}"/arhyas_command.log; exit 0;}
+grep 'Updating' git.output >/dev/null 2>&1 || { echo >&2 'no new update' | tee -a "${log_dir}"/Arhyas_Command.log; exit 0;}
 #if [ $status -ne 0 ]; then
 
-echo 'updating language files...' | tee -a "${log_dir}"/arhyas_command.log
-rsync -avu "${TEMP_DIR}"/txt/ "${APP_RES_DIR}" | tee -a "${log_dir}"/arhyas_command.log
+echo 'updating language files...' | tee -a "${log_dir}"/Arhyas_Command.log
+rsync -avu "${TEMP_DIR}"/txt/ "${APP_RES_DIR}" | tee -a "${log_dir}"/Arhyas_Command.log
  
 
-echo 'update completed...' | tee -a "${log_dir}"/arhyas_command.log
+echo 'update completed...' | tee -a "${log_dir}"/Arhyas_Command.log
 
 #rm git.output
       

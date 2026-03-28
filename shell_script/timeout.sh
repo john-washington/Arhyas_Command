@@ -48,16 +48,16 @@ found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
 if [[ $(wc -c < "$found" ) -eq 0 ]]; then
 	traceroute  $host |  bash ./tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 else
-	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/arhyas_command.log"
+	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 fi
 
 found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.json" ) 
 
 #if [ -f  "${data_dir}/${host}_trace_result.txt_geo_data.csv" ] && [ $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json") -gt 2]; then
 if [[ $(wc -c < "$found1" ) -eq 0  ||  $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json" ) -le 2 ]]; then
-	bash ./ip-api.sh -b "${data_dir}/${host}_trace_result.txt" | tee -a "${log_dir}/arhyas_command.log"
+	bash ./ip-api.sh -b "${data_dir}/${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
 else
-	echo "${data_dir}/${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/arhyas_command.log"
+	echo "${data_dir}/${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 fi
 
 timeout 15 ping -c 6 $host

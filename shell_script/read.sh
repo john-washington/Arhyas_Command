@@ -50,15 +50,15 @@ split_send_sp() {
       read -r -a hex_arry <<< "$2" 
       
       for part in "${hex_arry[@]}"; do
-        echo "part: $part" | tee -a "${log_dir}/arhyas_command.log"
+        echo "part: $part" | tee -a "${log_dir}/Arhyas_Command.log"
       
         my_hex_string=$(str_to_hex "$part")
 
         wc_byte2=$( echo "$part" | wc -c )
-        echo "byte count2: $wc_byte2" | tee -a "${log_dir}/arhyas_command.log"
+        echo "byte count2: $wc_byte2" | tee -a "${log_dir}/Arhyas_Command.log"
 
         if [[ $wc_byte2 -le 16 ]]; then
-          ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/arhyas_command.log"
+          ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/Arhyas_Command.log"
         else
            echo "warning: $part encoded to $my_hex_string is too long for transmission, try sending anyway..." | tee -a "${log_dir}/error.log"
            ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
@@ -77,21 +77,21 @@ split_send_hp() {
     echo "byte count: $wc_byte" 
 
     if [[ $wc_byte -le 16 ]]; then
-      ping -c 6 -p "$1" $host | tee -a "${log_dir}/arhyas_command.log"
+      ping -c 6 -p "$1" $host | tee -a "${log_dir}/Arhyas_Command.log"
     else
       
       read -r -a hex_arry <<< "$2" 
       
       for part in "${hex_arry[@]}"; do
-        echo "part: $part" | tee -a "${log_dir}/arhyas_command.log"
+        echo "part: $part" | tee -a "${log_dir}/Arhyas_Command.log"
       
         my_hex_string=$(str_to_hex "$part")
 
         wc_byte2=$( echo "$part" | wc -c )
-        echo "byte count2: $wc_byte2" | tee -a "${log_dir}/arhyas_command.log"
+        echo "byte count2: $wc_byte2" | tee -a "${log_dir}/Arhyas_Command.log"
 
         if [[ $wc_byte2 -le 16 ]]; then
-          ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/arhyas_command.log"
+          ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/Arhyas_Command.log"
         else
            echo "warning: $part encoded to $my_hex_string is too long for transmission, sending..." | tee -a "${log_dir}/error.log"
            ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
