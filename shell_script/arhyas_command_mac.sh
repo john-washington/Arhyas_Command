@@ -42,8 +42,10 @@ esac
 
 mkdir -p "${log_dir}"
 
-tar -czv "${data_dir}"."${date}".tar.gz "${data_dir}"
-mv "${data_dir}" "${data_dir}"."${date}"
+timestamp=$(date)
+
+tar -czv "${data_dir}"."${timestamp}".tar.gz "${data_dir}"
+mv "${data_dir}" "${data_dir}"."${timestamp}"
 
 mkdir -p "${data_dir}"
 
