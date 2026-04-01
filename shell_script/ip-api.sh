@@ -36,8 +36,6 @@ esac
 PATH=$PATH:/opt/local/bin:/usr/bin
 export PATH
 
-mkdir -p "${log_dir}"
-mkdir -p "${data_dir}"
 
 args=`getopt abs: $*`
 

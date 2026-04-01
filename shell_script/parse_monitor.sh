@@ -56,6 +56,7 @@ do
       cd "$data_dir"
       grep -R "${field13}" *.json | bash "${script_dir}"/parse_colon.sh
  
+      grep -R "${field13}" center_*.json | bash "${script_dir}"/parse_colon.sh
       #tr -d ":" 
 
   #else

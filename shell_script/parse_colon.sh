@@ -28,12 +28,18 @@ count=0
 while IFS=':'  read -r F1 F2 F3; do
   #echo "processing: $line"
   if [[ $count -eq 0 ]]; then
-    #echo $F1
+      #echo $F1
+      #echo ""
+      #echo $F2
+      #echo ""
       #echo $F3
       cd "$data_dir"
       command_str="jq -c '.[] | select( .query == $F3 ) | { query: .query, lat: .lat, lon: .lon, countryCode: .countryCode, region: .region, city: .city, timezone: .timezone, org: .org }' $F1"
       #echo ${command_str}
       eval "${command_str}"
+      command_str2="jq -c '.[] | select( .ip_range_start == $F3 ) | { ip_range_start: .ip_range_start, latitude: .latitude, longitude: .longitude, country_code: .country_code, city: .city, timezone: .timezone, distance: .distance }' $F1"
+      #echo ${command_str2}
+      eval "${command_str2}"
       #fi
    
   fi

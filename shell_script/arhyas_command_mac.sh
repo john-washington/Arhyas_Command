@@ -17,6 +17,7 @@ case "$OS_NAME" in
       command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by or apt install xxd(linux).  please run dependency_check.sh. installing...";  sudo apt install xxd; }
       command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by apt install whois(linux).  please run dependency_check.sh. installed...";  sudo apt install whois;}
       log_dir=../log
+      data_dir=../data
       ;;
   Darwin*)
       command -v port >/dev/null 2>&1 || { echo >&2 "I require port but it is not installed. Please install port. installing..."; bash ./install_port.sh; }
@@ -33,12 +34,19 @@ case "$OS_NAME" in
       
       APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
       log_dir="${APP_RES_DIR}/log"
+      data_dir="${APP_RES_DIR}/data"
       ;;
   *)
     ;;
 esac
 
 mkdir -p "${log_dir}"
+
+tar -czv "${data_dir}"."${date}".tar.gz "${data_dir}"
+mv "${data_dir}" "${data_dir}"."${date}"
+
+mkdir -p "${data_dir}"
+
 echo Please drop target address files
 
 #read target_addr
@@ -54,10 +62,7 @@ elif [ $column_count -eq 2 ]; then
         echo "Round ${i}"
         cat "${target}" | xargs -n 2 bash ./timeout.sh 
     
-        #find ${data_dir} -type f -name '*trace_result.txt' -print0 | xargs -0 cat > ${data_dir}/"${target}"_total_trace.txt
-        #./ip-api.sh -b ${data_dir}/www.x.com_trace_result.txt > ${data_dir}/"${target}"_total_trace_geo_data.csv
-        
-        SEC=$((RANDOM % 300))
+        SEC=$((RANDOM % 2400))
         echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
         sleep $SEC
   done
