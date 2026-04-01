@@ -44,7 +44,7 @@ mkdir -p "${log_dir}"
 
 timestamp=$(date)
 
-tar -czv "${data_dir}"."${timestamp}".tar.gz "${data_dir}"
+tar -czvf "${data_dir}"."${timestamp}".tar.gz "${data_dir}"
 mv "${data_dir}" "${data_dir}"."${timestamp}"
 
 mkdir -p "${data_dir}"
