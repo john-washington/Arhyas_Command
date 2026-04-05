@@ -70,7 +70,7 @@ while :; do
                echo ${command_str}
                eval "${command_str}"
                
-               export PGPASSWORD=Coocha2b
+               export PGPASSWORD=xxxxx
                
                psql -h gis.peertalk.net -p 2048 -d osm -U featureserver -w -c "\copy arhyas_command_tracking(track) FROM PROGRAM 'jq -c -r .[] ${inputfile}_geo_data.json'"
 
