@@ -115,8 +115,8 @@ while :; do
                     
                     cd "${APP_RES_DIR}"
                     
-                    cat "${data_dir}/center_${lat}_${lon}_${radius}.txt" |  bash ./append_code.sh  "${language_code}" | xargs -n 2  bash ./timeout.sh 
-                    cat "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" | bash ./append_code.sh  "${language_code}" | xargs  bash ./timeout.sh 
+                    cat "${data_dir}/center_${lat}_${lon}_${radius}.txt" |  bash "${APP_RES_DIR}"/append_code.sh  "${language_code}" | xargs -n 2  bash "${APP_RES_DIR}"/timeout.sh 
+                    cat "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" | bash "${APP_RES_DIR}"/append_code.sh  "${language_code}" | xargs  bash "${APP_RES_DIR}"/timeout.sh 
                   
                     
                   done < "$inputfile"
