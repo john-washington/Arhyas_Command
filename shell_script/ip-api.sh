@@ -15,7 +15,7 @@ case "$OS_NAME" in
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo apt install traceroute; }
 		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; sudo apt install jq; }
         command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing..."; sudo apt upgrade && sudo apt install postgresql; }
-         
+                APP_RES_DIR=~/Arhyas_Command/shell_script
                 data_dir=../data
                 txt_dir=../txt
                 log_dir=../log
@@ -116,7 +116,7 @@ while :; do
                     cd "${APP_RES_DIR}"
                     
                     cat "${data_dir}/center_${lat}_${lon}_${radius}.txt" |  bash "${APP_RES_DIR}"/append_code.sh  "${language_code}" | xargs -n 2  bash "${APP_RES_DIR}"/timeout.sh 
-                    cat "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" | bash "${APP_RES_DIR}"/append_code.sh  "${language_code}" | xargs  bash "${APP_RES_DIR}"/timeout.sh 
+                    cat "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" | bash "${APP_RES_DIR}"/append_code.sh  "${language_code}" | xargs -n 2 bash "${APP_RES_DIR}"/timeout.sh 
                   
                     
                   done < "$inputfile"
