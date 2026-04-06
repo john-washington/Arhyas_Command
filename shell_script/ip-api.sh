@@ -70,7 +70,7 @@ while :; do
                echo ${command_str}
                eval "${command_str}"
                
-               export PGPASSWORD=eeZ1tooy
+               export PGPASSWORD=xxx
                
                psql -h gis.peertalk.net -p 2048 -d osm -U featureserver -w -c "\copy arhyas_command_tracking(track) FROM PROGRAM 'jq -c -r .[] ${inputfile}_geo_data.json'"
 
@@ -101,7 +101,7 @@ while :; do
                     
                     jq '.[] | .ip_range_start' "center_${lat}_${lon}_${radius}.json" | tr -d '"' > "center_${lat}_${lon}_${radius}.txt"
                    
-                    export PGPASSWORD=eeZ1tooy
+                    export PGPASSWORD=xxx
                     
                     psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
                    

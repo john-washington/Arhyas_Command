@@ -16,6 +16,7 @@ case "$OS_NAME" in
       command -v parallel >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel by  apt install parallel(linux).  please run dependency_check.sh. install...";  sudo apt install parallel;}
       command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by or apt install xxd(linux).  please run dependency_check.sh. installing...";  sudo apt install xxd; }
       command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by apt install whois(linux).  please run dependency_check.sh. installed...";  sudo apt install whois;}
+      APP_RES_DIR=~/Arhyas_Command/shell_script
       log_dir=../log
       data_dir=../data
       ;;
