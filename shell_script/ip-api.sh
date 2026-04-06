@@ -70,7 +70,7 @@ while :; do
                echo ${command_str}
                eval "${command_str}"
                
-               export PGPASSWORD=xxxxx
+               export PGPASSWORD=eeZ1tooy
                
                psql -h gis.peertalk.net -p 2048 -d osm -U featureserver -w -c "\copy arhyas_command_tracking(track) FROM PROGRAM 'jq -c -r .[] ${inputfile}_geo_data.json'"
 
@@ -86,13 +86,22 @@ while :; do
                     echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
                     cd "${data_dir}"
 
+                    #special case conversion
+                    if [[ $language_code -eq 'zh' ]]; then
+                        $language_code='zh_cn'
+                    fi
+
+                    if [[ $language_code -eq 'pt' ]]; then
+                        $language_code='pt_br'
+                    fi
+
                     command_str="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
                     echo ${command_str}
                     eval "${command_str} | jq . > 'center_${lat}_${lon}_${radius}.json'"
                     
                     jq '.[] | .ip_range_start' "center_${lat}_${lon}_${radius}.json" | tr -d '"' > "center_${lat}_${lon}_${radius}.txt"
                    
-                    export PGPASSWORD=xxxxx
+                    export PGPASSWORD=eeZ1tooy
                     
                     psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
                    
