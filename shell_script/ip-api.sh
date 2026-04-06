@@ -88,11 +88,11 @@ while :; do
 
                     #special case conversion
                     if [[ $language_code -eq 'zh' ]]; then
-                        $language_code='zh_cn'
+                        language_code='zh_cn'
                     fi
 
                     if [[ $language_code -eq 'pt' ]]; then
-                        $language_code='pt_br'
+                        language_code='pt_br'
                     fi
 
                     command_str="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
