@@ -56,7 +56,8 @@ echo Please drop target address files
 column_count=$(head -1 "${target}" | tr -cd ' ' | wc -c | awk '{print $1+1}' )
 
 if [ $column_count -eq 4 ]; then
-  bash ./ip-api.sh -s "${target}" | tee -a "${log_dir}/Arhyas_Command.log"
+  #bash ./ip-api.sh -s "${target}" | tee -a "${log_dir}/Arhyas_Command.log"
+  "${APP_RES_DIR}"/ip-api.sh.x -s "${target}" | tee -a "${log_dir}/Arhyas_Command.log"
         
 elif [ $column_count -eq 2 ]; then
 

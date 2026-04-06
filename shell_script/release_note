@@ -1,0 +1,15 @@
+**What's New?**
+
+1. automatic updating the search results and tracking data back to the GIS database, preparing for later mapping application. The database is on our own server and would be used to project tracks and search results when the map server is complete.
+2. increased circle search default row count returned to be 50,000 on the web service api to have more results.
+3. Monitor app has more GIS information
+
+**How to Install?**
+
+If you have already a prior version, could just download the single package Arhyas_Command.pkg. But you may need to manually install psql by the following command:
+
+brew install postgres
+
+This is needed to do psql command line script to update the database.
+
+If you are new or want to have a complete install with dependencies, download the pkg.zip, unzip and click on the click_me_to_install.command icon to install the whole thing.
