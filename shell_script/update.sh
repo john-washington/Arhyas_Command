@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#read -s -p "please enter admin password:" mypasswd
-#echo
+read -s -p "please enter admin password:" mypasswd
+echo
 
-mypasswd=$1
+#mypasswd=$1
 
 OS_NAME=$(uname -s)
 
@@ -30,6 +30,9 @@ case "$OS_NAME" in
   *)
     ;;
 esac
+
+#echo $mypasswd | psql -h gis.peertalk.net -d osm -U featureserver -W -c "\copy circle_search_result_tmp FROM PROGRAM 'jq -c -r .[] ${data_dir}/center_${lat}_${lon}_${radius}.json'"
+
 
 echo $mypasswd | sudo -S logrotate -v "${APP_RES_DIR}"/Arhyas_Command.logrotate.config | tee -a "${log_dir}"/Arhyas_Command.log
 
