@@ -1,0 +1,1 @@
+ ls ./data/*.ping_stats.csv  > ping_stats_tmp_list.txt
