@@ -57,8 +57,8 @@ found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.jso
 
 #if [ -f  "${data_dir}/${host}_trace_result.txt_geo_data.csv" ] && [ $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json") -gt 2]; then
 if [[ $(wc -c < "$found1" ) -eq 0  ||  $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json" ) -le 2 ]]; then
-	bash ${shell_script}/ip-api.sh -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
-	#"${shell_script}"/ip-api.sh.x -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
+	#bash ${shell_script}/ip-api.sh -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
+	"${shell_script}"/ip-api.sh.x -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
 
 else
 	echo "${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
