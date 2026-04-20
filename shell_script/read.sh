@@ -10,9 +10,9 @@ case "$OS_NAME" in
     command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo apt install timeout;}
    
     APP_RES_DIR=~/Arhyas_Command
-    data_dir=../data
-    txt_dir=../txt
-    log_dir=../log
+    data_dir="${APP_RES_DIR}"/data
+    txt_dir="${APP_RES_DIR}"/txt
+    log_dir="${APP_RES_DIR}"/log
     ;;
   Darwin*)
     command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout;}
