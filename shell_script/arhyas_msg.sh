@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/usr/bin/say "This process sends Krystal River Prayer and Arhyas Command to your target network"
+#/usr/bin/say "This process sends Krystal River Prayer and Arhyas Command to your target network"
 #command -v parallel >/dev/null 2>&1 || { echo >&2 "I require parallel but it is not installed. Please install parallel by port install parallel(mac) or apt install parallel(linux). Aborting."; exit 1;}
 
 #PATH=$PATH:/opt/local/bin:/usr/bin:/usr/local/bin:/opt/local/sbin:/sbin
