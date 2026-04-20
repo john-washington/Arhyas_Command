@@ -1,6 +1,8 @@
 #!/bin/bash
 
 infile=$1
+language_code=$2
+
 OS_NAME=$(uname -s)
 
 case "$OS_NAME" in
