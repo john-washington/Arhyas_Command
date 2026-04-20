@@ -14,6 +14,7 @@ case "$OS_NAME" in
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo apt install traceroute; }
 		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo apt install curl; }
 		APP_RES_DIR=~/Arhyas_Command
+		shell_script="${APP_RES_DIR}"/shell_script
 		data_dir="${APP_RES_DIR}"/data
 		txt_dir="${APP_RES_DIR}"/txt
 		log_dir="${APP_RES_DIR}"/log
@@ -24,6 +25,7 @@ case "$OS_NAME" in
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo port install traceroute; }
 		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo port install curl; }
 		APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+		shell_script="${APP_RES_DIR}"
 		data_dir="${APP_RES_DIR}/data"
 		txt_dir="${APP_RES_DIR}"
 		log_dir="${APP_RES_DIR}/log"
@@ -55,8 +57,8 @@ found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.jso
 
 #if [ -f  "${data_dir}/${host}_trace_result.txt_geo_data.csv" ] && [ $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json") -gt 2]; then
 if [[ $(wc -c < "$found1" ) -eq 0  ||  $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json" ) -le 2 ]]; then
-	#bash ./ip-api.sh -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
-	"${APP_RES_DIR}"/ip-api.sh.x -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
+	bash ${shell_script}/ip-api.sh -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
+	#"${shell_script}"/ip-api.sh.x -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
 
 else
 	echo "${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
