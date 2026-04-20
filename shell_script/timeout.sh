@@ -48,7 +48,7 @@ found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
 
 #if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
 if [[ $(wc -c < "$found" ) -eq 0 ]]; then
-	traceroute  $host |  bash ./tracelist.sh > "${data_dir}/${host}_trace_result.txt"
+	traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 else
 	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 fi
@@ -68,14 +68,14 @@ timeout 15 ping -c 6 $host
 status=$?
 if [ $status -eq 124 ]; then
 	echo "$1 is probably unpingable...";
-	cat "${data_dir}/${host}_trace_result.txt" |  bash ./append_code.sh  "$code" |  xargs -n 2 bash  ./arhyas_msg.sh 
+	cat "${data_dir}/${host}_trace_result.txt" |  bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
 	
 elif [ $status -ne 0 ]; then
 	echo "command failed with status: $status";
-	cat "${data_dir}/${host}_trace_result.txt" |  bash ./append_code.sh  "$code" |  xargs -n 2 bash  ./arhyas_msg.sh 
+	cat "${data_dir}/${host}_trace_result.txt" |  bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
 	
 else
-	bash ./arhyas_msg.sh "$host" "$code"  
+	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
 fi
 
 
