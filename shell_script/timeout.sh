@@ -13,11 +13,11 @@ case "$OS_NAME" in
 		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo apt install timeout; }
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo apt install traceroute; }
 		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo apt install curl; }
-		data_dir=../data
-		txt_dir=../txt
-		log_dir=../log
-		TEMP_DIR=~/Documents/Arhyas_Command
 		APP_RES_DIR=~/Arhyas_Command
+		data_dir="${APP_RES_DIR}"/data
+		txt_dir="${APP_RES_DIR}"/txt
+		log_dir="${APP_RES_DIR}"/log
+		TEMP_DIR=~/Documents/Arhyas_Command
 		;;
 	Darwin*)
 		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout; }
