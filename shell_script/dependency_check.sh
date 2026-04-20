@@ -1,6 +1,9 @@
 #!/bin/bash
 
-read mypasswd
+
+read -s -p "please enter admin password:" mypasswd
+echo
+#read mypasswd
 
 
 OS_NAME=$(uname -s)
