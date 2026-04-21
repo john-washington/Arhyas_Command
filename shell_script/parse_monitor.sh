@@ -14,7 +14,7 @@ case "$OS_NAME" in
     command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by port install jq(mac) or apt install jq(linux). installing..."; sudo apt install jq; }
     APP_RES_DIR=~/Arhyas_Command
     script_dir="${APP_RES_DIR}"/shell_script
-    data_dir="../data" 
+    data_dir="${APP_RES_DIR}/data" 
     ;;
   Darwin*)
     command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by port install xxd(mac) or apt install xxd(linux). installing..."; sudo port install xxd; }
@@ -58,7 +58,7 @@ do
  
       grep -R "${field13}" center_*.json | bash "${script_dir}"/parse_colon.sh
       #tr -d ":" 
-      cd "${APP_RES_DIR}"
+      cd "${script_dir}"
 
   #else
   #    echo "$field12 is too long for transmission, sended anyway" 
