@@ -24,8 +24,8 @@ case "$OS_NAME" in
         command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; sudo port install jq; }
         command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing...";  brew install postgresql; }
           
-                #APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-                APP_RES_DIR=~/Arhyas_Command
+                APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+                #APP_RES_DIR=~/Arhyas_Command
                 shell_script="${APP_RES_DIR}"
                 data_dir="${APP_RES_DIR}/data"
                 txt_dir="${APP_RES_DIR}"

@@ -35,3 +35,4 @@ cat ip_list_"${timestamp}".txt | "${shell_dir}"/generate_ip_ping_stats.sh
 ls *.ping_stats.csv > ping_stats_list_"${timestamp}".txt
 
 cat ping_stats_list_"${timestamp}".txt | "${shell_dir}"/feed_to_parse_packet_loss.sh
+

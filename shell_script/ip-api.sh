@@ -80,7 +80,7 @@ while :; do
                cd "${APP_RES_DIR}"
                shift;
                ;;
-       -N|-s)
+       -n) #network cluster case
             echo "oarg is '$2'"; oarg="$2"
         
             echo "calling gis api"
@@ -116,82 +116,120 @@ while :; do
                   
                     psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result_language_coded(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${language_code}_${radius}.json'"
                     
-                    #if [[ $1 -eq '-N' ]]; then
-                        pi_list=("pi-1" "pi-2" "pi-3" "pi-b" "pi-c" "pi-g" "pi-k" "pi-l" "pi-love" "pi-p" "pi-q" "pi-t" "pi-u" "pi-v" "pi-x" "pi-y"  )
-
-                        cd "${data_dir}"
-
-                        total=$(cat "center_${lat}_${lon}_${radius}.txt" | wc -l )
-
-                        echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
-                        echo "spliting ${total}/${#pi_list[@]} per chunk"
-                        chunk=$((${total}/${#pi_list[@]}))
-                        
-
-                        split -l $chunk center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${radius}_
-                        
-                        ls center_${lat}_${lon}_${radius}_* >  center_${lat}_${lon}_${radius}_chunk_filelist.txt
-                       
-                        #make array in  
-                        file_arry=($(cat center_${lat}_${lon}_${radius}_chunk_filelist.txt))
-                        
-                        #here needs to be parallel spawning of the remote peer processes
-                       
-                        echo "total number of files: ${!file_arry[@]}"
-                        for i in "${!file_arry[@]}";
-                        do
-                            #echo "processing file array index: ${i}"
-                            #echo "total station number: ${#pi_list[@]}"
-                            if [[ ${i} -lt ${#pi_list[@]} ]]; then
-                                echo "ssh pi@${pi_list[$i]} cat < ${file_arry[$i]} '>' ${file_arry[$i]}"
-                            else
-                                #echo "picking station: ${#file_arry[@]}-${i}"
-                                echo "ssh pi@${pi_list[${#file_arry[@]}-${i}]} cat < ${file_arry[$i]} '>' ${file_arry[$i]}"
-                            fi    
-                        done > jobs_to_run_1
-
-
-                        for i in "${!file_arry[@]}";
-                        do
-                            #echo "processing file array index: ${i}"
-                            #echo "total station number: ${#pi_list[@]}"
-                            if [[ ${i} -lt ${#pi_list[@]} ]]; then
-                                echo "ssh -X pi@${pi_list[$i]} '~/Arhyas_Command/shell_script/child_timeout.sh ~/${file_arry[$i]}'"
-                            else
-                                #echo "picking station: ${i}-1"
-                                echo "ssh -X pi@${pi_list[${#file_arry[@]}-${i}]} '~/Arhyas_Command/shell_script/child_timeout.sh ~/${file_arry[$i]}'"
-                            fi    
-                        done > jobs_to_run_2
-
-                        echo "spawning job 1 remote tasks in parallel mode:"
-                        cmd="parallel -j ${#pi_list[@]} < jobs_to_run_1"
-                        echo ${cmd}
-                        eval ${cmd}
-
-                        echo "spawning job 2 remote tasks in parallel mode:"
-                        cmd="parallel -j ${#pi_list[@]} < jobs_to_run_2"
-                        echo ${cmd}
-                        eval ${cmd}
-
-                        echo "I am done. Monitor Remote Peer Seperately with ssh"
-
-
-                        #total2=$(cat ${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" | wc -l)
-                        #split -l ${total2}/26 "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}_"
-                       
-                        #ls "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}_" > "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}_filelist.txt"
-
-                        #for i in {0..${#pi_list[@]} }
-                        #do
-
-                        #done
-                    #else
-                    #    cd "${APP_RES_DIR}"
-                    #    cat "${data_dir}/center_${lat}_${lon}_${radius}.txt" |  bash "${APP_RES_DIR}"/append_code.sh  "${language_code}" | xargs -n 2  bash "${APP_RES_DIR}"/timeout.sh 
-                    #    cat "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" | bash "${APP_RES_DIR}"/append_code.sh  "${language_code}" | xargs -n 2 bash "${APP_RES_DIR}"/timeout.sh 
-                    #fi
+                    #from here it is differnt than the -s case
+                    #these are still active
+                    #pi_list=("pi-1" "pi-b" "pi-c" "pi-t" "pi-u" "pi-v" "pi-x" "pi-y" )
                     
-                  done < "$inputfile"
+                    pi_list=("pi-2" "pi-3" "pi-4" "pi-5"  "pi-i" "pi-j" "pi-k" "pi-l" "pi-love" "pi-n"  "pi-p" "pi-q"   "pi-v2"  )
+
+                    cd "${data_dir}"
+
+                    #merge the two 
+                    cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
+
+                    total=$(cat center_${lat}_${lon}_${radius}_merged_list.txt | wc -l )
+
+                    echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
+                    echo "spliting ${total}/${#pi_list[@]} per chunk"
+                    chunk=$((${total}/${#pi_list[@]}))
+                    
+                    split -l $chunk center_${lat}_${lon}_${radius}_merged_list.txt center_${lat}_${lon}_${radius}_
+                    
+                    ls center_${lat}_${lon}_${radius}_* >  center_${lat}_${lon}_${radius}_chunk_filelist.txt
+                   
+                    #make array in  
+                    file_arry=($(cat center_${lat}_${lon}_${radius}_chunk_filelist.txt))
+                    
+                    #here needs to be parallel spawning of the remote peer processes
+                   
+                    echo "total number of files: ${!file_arry[@]}"
+                    for i in "${!file_arry[@]}";
+                    do
+                        #echo "processing file array index: ${i}"
+                        #echo "total station number: ${#pi_list[@]}"
+                        if [[ ${i} -lt ${#pi_list[@]} ]]; then
+                            echo "ssh pi@${pi_list[$i]} cat < ${file_arry[$i]} '>' ${file_arry[$i]}"
+                        else
+                            #echo "picking station: ${#file_arry[@]}-${i}"
+                            echo "ssh pi@${pi_list[${#file_arry[@]}-${i}]} cat < ${file_arry[$i]} '>' ${file_arry[$i]}"
+                        fi    
+                    done > jobs_to_run_1
+
+
+                    for i in "${!file_arry[@]}";
+                    do
+                        #echo "processing file array index: ${i}"
+                        #echo "total station number: ${#pi_list[@]}"
+                        if [[ ${i} -lt ${#pi_list[@]} ]]; then
+                            echo "ssh -t pi@${pi_list[$i]} 'cp ~/${file_arry[$i]} ~/Arhyas_Command/data; ~/Arhyas_Command/shell_script/child_timeout.sh ~/Arhyas_Command/data/${file_arry[$i]}' &"
+                        else
+                            #echo "picking station: ${i}-1"
+                            echo "ssh -t pi@${pi_list[${#file_arry[@]}-${i}]} 'cp ~/${file_arry[$i]} ~/Arhyas_Command/data; ~/Arhyas_Command/shell_script/child_timeout.sh ~/Arhyas_Command/data/${file_arry[$i]}' &"
+                        fi    
+                    done > jobs_to_run_2
+
+                    echo "spawning job 1 remote tasks in parallel mode:"
+                    cmd="parallel -j ${#pi_list[@]} < jobs_to_run_1"
+                    echo ${cmd}
+                    eval ${cmd}
+
+                    echo "spawning job 2 remote tasks in parallel mode:"
+                    cmd="parallel -j ${#pi_list[@]} < jobs_to_run_2"
+                    echo ${cmd}
+                    eval ${cmd}
+
+                    #bug: here we have some glitch show some random peer console in display
+                    #it never reach the statements below 
+                    echo "I am done for -N case. Monitor Remote Peer Seperately with ssh"
+                done < "$inputfile"
+
+                shift;
+                ;;
+            -s) #single instance case
+                echo "oarg is '$2'"; oarg="$2"
+        
+                echo "calling gis api"
+                while IFS=' ' read -r lat lon radius language_code;
+                do
+                    echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
+                    cd "${data_dir}"
+
+                    #special case conversion
+                    if [[ ${language_code} -eq 'zh' ]]; then
+                        language_code='zh_cn'
+                    fi
+
+                    #if [[ ${language_code} -eq 'pt' ]]; then
+                    #    language_code='pt_br'
+                    #fi
+
+                    command_str="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
+                    echo ${command_str}
+                    eval "${command_str} | jq . > 'center_${lat}_${lon}_${radius}.json'"
+                    
+                    jq '.[] | .ip_range_start' "center_${lat}_${lon}_${radius}.json" | tr -d '"' > "center_${lat}_${lon}_${radius}.txt"
+                   
+                    export PGPASSWORD=eeZ1tooy
+                    
+                    psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
+                   
+                    command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
+                    echo ${command_str2}
+                    eval "${command_str2} | jq . > 'center_${lat}_${lon}_${language_code}_${radius}.json'"
+                  
+                    jq '.[] | .network' "center_${lat}_${lon}_${language_code}_${radius}.json" | tr -d '"' | sed  's/\/[0-9]\{1,\}//g' > "center_${lat}_${lon}_${language_code}_${radius}.txt"
+                  
+                    psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result_language_coded(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${language_code}_${radius}.json'"
+            
+                    # -s mode for single instance direct execution 
+                    cd "${data_dir}"
+                    #merge the two 
+                    cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
+                    cat center_${lat}_${lon}_${radius}_merged_list.txt |  bash "${shell_script}"/append_code.sh  "${language_code}" | xargs -n 2  bash "${shell_script}"/timeout.sh 
+                
+                   echo "I am done for -s case"
+                done < "$inputfile"
+
                 shift;
                 ;;
        --)
