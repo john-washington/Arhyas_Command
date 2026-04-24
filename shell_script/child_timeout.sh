@@ -35,21 +35,6 @@ case "$OS_NAME" in
         ;;
 esac
 
-mkdir -p "${log_dir}"
-
-timestamp=$(date)
-
-#cd "${APP_RES_DIR}"
-
-tar -czvf "${data_dir}"."${timestamp}".tar.gz data
-
-#mv "${data_dir}" "${data_dir}"."${timestamp}"
-rm -rf "${data_dir}"
-
-mkdir -p "${data_dir}"
-
 
 cat $infile |  bash "${shell_script}"/append_code.sh  "${language_code}" | xargs -n 2  bash "${shell_script}"/timeout.sh 
-
-#cat "${data_dir}/center_${lat}_${lon}_${language_code}_${radius}.txt" | bash "${APP_RES_DIR}"/append_code.sh  "${language_code}" | xargs -n 2 bash "${APP_RES_DIR}"/timeout.sh 
    
