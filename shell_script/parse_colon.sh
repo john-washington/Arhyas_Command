@@ -10,7 +10,7 @@ case "$OS_NAME" in
     command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo apt install curl; }
     command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by port install jq(mac) or apt install jq(linux). installing..."; sudo apt install jq; }
     APP_RES_DIR=~/Arhyas_Command
-    data_dir="../data" 
+    data_dir="${APP_RES_DIR}/data" 
     ;;
   Darwin*)
     command -v xxd >/dev/null 2>&1 || { echo >&2 "I require xxd but it is not installed. Please install xxd by port install xxd(mac) or apt install xxd(linux). installing..."; sudo port install xxd; }

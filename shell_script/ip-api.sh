@@ -20,7 +20,7 @@ case "$OS_NAME" in
                 data_dir="${APP_RES_DIR}"/data
                 txt_dir="${APP_RES_DIR}"/txt
                 log_dir="${APP_RES_DIR}"/log
-               
+                config_dir="${}APP_RES_DIR}"/config
                 ;;
 	Darwin*)
 		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout; }
@@ -34,6 +34,7 @@ case "$OS_NAME" in
                 data_dir="${APP_RES_DIR}/data"
                 txt_dir="${APP_RES_DIR}"/txt
                 log_dir="${APP_RES_DIR}/log"
+                config_dir="${APP_RES_DIR}"/config
                 ;;
 	*)
 		;;
@@ -45,13 +46,13 @@ PATH=$PATH:/opt/local/bin:/usr/bin
 export PATH
 
 
-args=`getopt abs: $*`
+args=`getopt abns: $*`
 
 # you should not use `getopt abo: "$@"` since that would parse
 # the arguments differently from what the set command below does.
 if [ $? -ne 0 ]; then
       
-       echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -g <inputfilele> for gis circle search api"
+       echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -s <inputfilele> for gis circle search api or -n for network cluster with circle search master"
        exit 2
 fi
 set -- $args
@@ -86,7 +87,7 @@ while :; do
             echo "calling gis api"
                 while IFS=' ' read -r lat lon radius language_code;
                   do
-                    echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
+                    echo "latidue: $lat longitude: $lon radius: $radius language code: $language_code"
                     cd "${data_dir}"
 
                     #special case conversion
@@ -117,11 +118,8 @@ while :; do
                     psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result_language_coded(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${language_code}_${radius}.json'"
                     
                     #from here it is differnt than the -s case
-                    #these are still active
-                    #pi_list=("pi-1" "pi-b" "pi-c" "pi-t" "pi-u" "pi-v" "pi-x" "pi-y" )
-                    
-                    pi_list=("pi-2" "pi-3" "pi-4" "pi-5"  "pi-i" "pi-j" "pi-k" "pi-l" "pi-love" "pi-n"  "pi-p" "pi-q"   "pi-v2"  )
-
+                   
+                    pi_list=($(cat "${config_dir}"/peer_list.txt | "${shell_script}"/parse_peer_config.sh ))
                     cd "${data_dir}"
 
                     #merge the two 
@@ -161,11 +159,12 @@ while :; do
                         #echo "processing file array index: ${i}"
                         #echo "total station number: ${#pi_list[@]}"
                         if [[ ${i} -lt ${#pi_list[@]} ]]; then
-                            echo "ssh -t pi@${pi_list[$i]} 'cp ~/${file_arry[$i]} ~/Arhyas_Command/data; ~/Arhyas_Command/shell_script/child_timeout.sh ~/Arhyas_Command/data/${file_arry[$i]}' &"
+                            pi=${pi_list[$i]}
                         else
-                            #echo "picking station: ${i}-1"
-                            echo "ssh -t pi@${pi_list[${#file_arry[@]}-${i}]} 'cp ~/${file_arry[$i]} ~/Arhyas_Command/data; ~/Arhyas_Command/shell_script/child_timeout.sh ~/Arhyas_Command/data/${file_arry[$i]}' &"
-                        fi    
+                            pi=${pi_list[${#file_arry[@]}-${i}]}
+                        fi  
+                        echo "ssh -t pi@${pi} 'cd ~/Arhyas_Command; tar -czvf data.tar.gz data; rm -rf data ; mkdir -p data; cp ~/${file_arry[$i]} ~/Arhyas_Command/data; ~/Arhyas_Command/shell_script/child_timeout.sh ~/Arhyas_Command/data/${file_arry[$i]}' &"
+                          
                     done > jobs_to_run_2
 
                     echo "spawning job 1 remote tasks in parallel mode:"
@@ -178,14 +177,12 @@ while :; do
                     echo ${cmd}
                     eval ${cmd}
 
-                    #bug: here we have some glitch show some random peer console in display
-                    #it never reach the statements below 
                     echo "I am done for -N case. Monitor Remote Peer Seperately with ssh"
                 done < "$inputfile"
 
                 shift;
                 ;;
-            -s) #single instance case
+    -s) #single instance case
                 echo "oarg is '$2'"; oarg="$2"
         
                 echo "calling gis api"
@@ -233,7 +230,7 @@ while :; do
                 shift;
                 ;;
        --)
-               echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -s <inputfilele> for gis circle search api"
+               echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -s <inputfilele> for gis circle search api, or ip-api.sh -n for network cluster mode with circle search master"
                shift; break
                ;;
        esac

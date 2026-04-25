@@ -14,7 +14,7 @@ case "$OS_NAME" in
       
       APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
       #APP_RES_DIR=~/Arhyas_Command
-      shell_dir="${APP_RES_DIR}"
+      shell_dir="${APP_RES_DIR}"/shell_script
       log_dir="${APP_RES_DIR}"/log
       data_dir="${APP_RES_DIR}"/data
 

@@ -67,7 +67,12 @@ echo "column count" "${column_count}"
 
 if [ $column_count -eq 4 ]; then
   #bash ./ip-api.sh -s "${target}" | tee -a "${log_dir}/Arhyas_Command.log"
-  cm="${script_dir}/ip-api.sh.x -n ${target} | tee -a ${log_dir}/Arhyas_Command.log"
+  #network cluster mode
+  #cm="${script_dir}/ip-api.sh.x -n ${target} | tee -a ${log_dir}/Arhyas_Command.log"
+  
+  #single instance mode
+  cm="${script_dir}/ip-api.sh.x -s ${target} | tee -a ${log_dir}/Arhyas_Command.log"
+  
   echo ${cm}
   eval ${cm}
 

@@ -22,7 +22,7 @@ case "$OS_NAME" in
     command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install curl by port install curl(mac) or apt install curl(linux). installing..."; sudo port install curl; }
     command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by port install jq(mac) or apt install jq(linux). installing..."; sudo port install jq; }
     APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-    script_dir="${APP_RES_DIR}"
+    script_dir="${APP_RES_DIR}"/shell_script
     data_dir="${APP_RES_DIR}"/data
     ;;
   *)

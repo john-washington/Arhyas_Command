@@ -25,9 +25,9 @@ case "$OS_NAME" in
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo port install traceroute; }
 		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo port install curl; }
 		APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-		shell_script="${APP_RES_DIR}"
+		shell_script="${APP_RES_DIR}"/shell_script
 		data_dir="${APP_RES_DIR}/data"
-		txt_dir="${APP_RES_DIR}"
+		txt_dir="${APP_RES_DIR}"/txt
 		log_dir="${APP_RES_DIR}/log"
 		TEMP_DIR=~/Documents/Arhyas_Command
      
