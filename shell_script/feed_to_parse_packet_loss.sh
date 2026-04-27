@@ -29,5 +29,5 @@ do
   command_txt3="cat ${ipfile} | "${shell_dir}"/parse_packet_loss.sh > ${ipfile}.trend.csv"
   echo ${command_txt3}
   eval "${command_txt3}"
-  julia ${shell_dir}/ip_ping_statis.jl ${ipfile}.trend.csv
+  julia ${shell_dir}/ip_ping_stats.jl ${ipfile}.trend.csv
 done < /dev/stdin
