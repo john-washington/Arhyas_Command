@@ -45,7 +45,7 @@ do
 
   cd "${log_dir}"
 
-  command_txt="grep -A 1 '${ip} ping statistics' error.log.1 > '${data_dir}/${ip}.ping_stats.txt'"
+  command_txt="grep -A 1 '${ip} ping statistics' error.log.1 >> '${data_dir}/${ip}.ping_stats.txt'"
 
   echo ${command_txt}
 
@@ -53,11 +53,11 @@ do
 
   #grep "[^0.0]% packet loss" 59.37.176.121.ping_stats.txt
 
-  command_txt2="grep '[0-9.0-9]%' '${data_dir}/${ip}.ping_stats.txt' > '${data_dir}/${ip}.ping_stats.csv'"
+  command_txt2="grep '[0-9.0-9]%' '${data_dir}/${ip}.ping_stats.txt' >> '${data_dir}/${ip}.ping_stats.csv'"
   echo ${command_txt2}
   eval "${command_txt2}"
   
-  command_txt3="cat '${data_dir}/${ip}.ping_stats.csv' | ${shell_dir}/parse_packet_loss.sh > '${data_dir}/${ip}.ping_stats_trend.csv'"
+  command_txt3="cat '${data_dir}/${ip}.ping_stats.csv' | parallel ${shell_dir}/parse_packet_loss.sh > '${data_dir}/${ip}.ping_stats_trend.csv'"
   echo ${command_txt3}
   eval "${command_txt3}"
 
