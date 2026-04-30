@@ -69,11 +69,11 @@ timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
 status=$?
 if [ $status -eq 124 ]; then
 	echo "$1 is probably unpingable...";
-	cat "${data_dir}/${host}_trace_result.txt" |  bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
+	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 1 |bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
 	
 elif [ $status -ne 0 ]; then
 	echo "command failed with status: $status";
-	cat "${data_dir}/${host}_trace_result.txt" |  bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
+	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 1 | bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
 	
 else
 	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
