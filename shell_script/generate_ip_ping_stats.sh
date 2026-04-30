@@ -35,8 +35,8 @@ do
 
   Echo "please take the rotated copy instead of the running log"
 
-  #logfile="${log_dir}"/error.log.1
-  logfile="${log_dir}"/error.log
+  logfile="${log_dir}"/error.log.1
+  #logfile="${log_dir}"/error.log
   
 
   #/Users/jzhang/Arhyas_Command/log/work/xaa
