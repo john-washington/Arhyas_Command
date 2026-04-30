@@ -64,7 +64,8 @@ else
 	echo "${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 fi
 
-timeout 15 ping -c 6 $host
+timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
+
 status=$?
 if [ $status -eq 124 ]; then
 	echo "$1 is probably unpingable...";

@@ -31,6 +31,7 @@ export PATH
 
 csv_file="$1"
 host="$2"
+
  
 mkdir -p "${log_dir}"
 
@@ -104,17 +105,21 @@ split_send_hp() {
 }
 
 
+#timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
 
+sudo nmap -sn --traceroute $host | tee -a "${log_dir}/error.log"
 
-timeout 15 ping -c 6 $host 
 status=$?
 
-if [ $status -eq 124 ]; then
-        echo "$host is probably unpingable..."
-elif [ $status -ne 0 ]; then
-	echo "command failed with status: $status"
+if [ $status -eq 0]; then
+  echo "$host is down..." | tee -a "${log_dir}/error.log"
+
+  #if [ $status -eq 124 ]; then
+  #        echo "$host is probably unpingable..." | tee -a "${log_dir}/error.log"
+  #elif [ $status -ne 0 ]; then
+  #	echo "command failed with s#tatus: $status" | tee -a "${log_dir}/error.log"
 else
-  while IFS=, read -r field1 field2
+  while IFS=, read -r field1
   do
     echo "Field 1: $field1"
     hex_string=$(str_to_hex "$field1")

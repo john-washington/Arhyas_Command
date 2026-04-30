@@ -20,6 +20,7 @@ case "$OS_NAME" in
       command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; echo $mypasswd | sudo -S apt install jq; }
       command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing...";echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S apt install postgresql; }
       command -v julia >/dev/null 2>&1 || { echo >&2 "I require julia but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S curl -fsSL https://install.julialang.org | sh -s;  . /home/pi/.bashrc}
+      command -v nmap >/dev/null 2>&1 || { echo >&2 "I require nmap but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S apt install nmap}
        
       ;;
   Darwin*)
@@ -33,9 +34,10 @@ case "$OS_NAME" in
       command -v logrotate >/dev/null 2>&1 || { echo >&2 "I require logrotate but it is not installed. Please install logrotate by port install logrotate(mac) or apt install logrotate(linux). installing..."; echo $mypasswd | sudo -S port install logrotate;}
       command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; echo $mypasswd | sudo -S port install curl; }
       command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; echo $mypasswd | sudo -S port install jq; }
-     command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing...";  brew install postgresql; }
-    command -v julia >/dev/null 2>&1 || { echo >&2 "I require julia but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S curl -fsSL https://install.julialang.org | sh -s ;  . /home/pi/.bashrc }
-     
+      command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing...";  brew install postgresql; }
+      command -v julia >/dev/null 2>&1 || { echo >&2 "I require julia but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S curl -fsSL https://install.julialang.org | sh -s ;  . /home/pi/.bashrc }
+      command -v nmap >/dev/null 2>&1 || { echo >&2 "I require nmap but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S port install nmap}
+      
       ;;
   *)
     ;;
