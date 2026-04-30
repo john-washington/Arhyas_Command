@@ -132,7 +132,7 @@ elif [ $status -ne 0 ]; then
 fi
 
 #do the sending regardless:
-  while IFS=, read -r field1
+  while IFS=, read -r field1 field2
   do
     echo "Field 1: $field1"
 
