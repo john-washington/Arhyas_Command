@@ -20,7 +20,8 @@ case "$OS_NAME" in
       command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; echo $mypasswd | sudo -S apt install jq; }
       command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing...";echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S apt install postgresql; }
       command -v julia >/dev/null 2>&1 || { echo >&2 "I require julia but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S curl -fsSL https://install.julialang.org | sh -s;  . /home/pi/.bashrc}
-      command -v nmap >/dev/null 2>&1 || { echo >&2 "I require nmap but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S apt install nmap}
+      command -v nmap >/dev/null 2>&1 || { echo >&2 "I require nmap but it is not installed. Please install nmap by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S apt install nmap}
+      command -v sshpass >/dev/null 2>&1 || { echo >&2 "I require nmap but it is not installed. Please install sshpass by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S apt install sshpass}
        
       ;;
   Darwin*)
@@ -37,6 +38,7 @@ case "$OS_NAME" in
       command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing...";  brew install postgresql; }
       command -v julia >/dev/null 2>&1 || { echo >&2 "I require julia but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S apt update && echo $mypasswd | sudo -S apt upgrade && echo $mypasswd | sudo -S curl -fsSL https://install.julialang.org | sh -s ;  . /home/pi/.bashrc }
       command -v nmap >/dev/null 2>&1 || { echo >&2 "I require nmap but it is not installed. Please install julia by: installing..."; echo $mypasswd | sudo -S port install nmap}
+      command -v sshpass >/dev/null 2>&1 || { echo >&2 "I require sshpass but it is not installed. Please install sshpass by: installing..."; echo $mypasswd |  sudo -S port install sshpass}
       
       ;;
   *)

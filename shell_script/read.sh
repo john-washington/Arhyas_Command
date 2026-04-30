@@ -46,7 +46,7 @@ split_send_sp() {
 
     if [[ $wc_byte -le 16 ]]; then
       ping -c 6 -p "$1" $host | tee -a "${log_dir}/error.log"
-      sudo nmap -Pn --data "$my_hex_string" --traceroute $host | tee -a "${log_dir}/error.log"
+      sudo nmap -Pn -sn --data "$my_hex_string" -sS $host | tee -a "${log_dir}/error.log"
            
     else
       
@@ -62,12 +62,12 @@ split_send_sp() {
 
         if [[ $wc_byte2 -le 16 ]]; then
           ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-          sudo nmap -Pn --data "$my_hex_string" --traceroute $host | tee -a "${log_dir}/error.log"
+          sudo nmap -Pn --data "$my_hex_string" -sS $host | tee -a "${log_dir}/error.log"
            
         else
            echo "warning: $part encoded to $my_hex_string is too long for transmission, try sending anyway..." | tee -a "${log_dir}/error.log"
            ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-           sudo nmap -Pn --data "$my_hex_string" --traceroute $host | tee -a "${log_dir}/error.log"
+           sudo nmap -Pn --data "$my_hex_string" -sS $host | tee -a "${log_dir}/error.log"
            
            #r=$(split_send_hp "$my_hex_string" "$part")
         fi
@@ -85,7 +85,7 @@ split_send_hp() {
 
     if [[ $wc_byte -le 16 ]]; then
       ping -c 6 -p "$1" $host | tee -a "${log_dir}/error.log"
-      sudo nmap -Pn --data "$my_hex_string" --traceroute $host | tee -a "${log_dir}/error.log"
+      sudo nmap -Pn --data "$my_hex_string" -sS $host | tee -a "${log_dir}/error.log"
            
     else
       
@@ -101,12 +101,12 @@ split_send_hp() {
 
         if [[ $wc_byte2 -le 16 ]]; then
           ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-          sudo nmap -Pn --data "$my_hex_string" --traceroute $host | tee -a "${log_dir}/error.log"
+          sudo nmap -Pn --data "$my_hex_string" -sS $host | tee -a "${log_dir}/error.log"
            
         else
            echo "warning: $part encoded to $my_hex_string is too long for transmission, sending..." | tee -a "${log_dir}/error.log"
            ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-           sudo nmap -Pn --data "$my_hex_string" --traceroute $host | tee -a "${log_dir}/error.log"
+           sudo nmap -Pn --data "$my_hex_string" -sS $host | tee -a "${log_dir}/error.log"
            
            #r=$(split_send_sp "$my_hex_string" "$part")
         fi
@@ -117,20 +117,21 @@ split_send_hp() {
 }
 
 
-#timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
-
-sudo nmap -sn --traceroute $host | tee -a "${log_dir}/error.log"
-
+timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
 status=$?
 
-if [ $status -eq 0]; then
-  echo "$host is down..." | tee -a "${log_dir}/error.log"
+if [ $status -eq 124 ]; then
+    echo "$host is probably unpingable..." | tee -a "${log_dir}/error.log"
+    echo "nmap deep scaning..."
+    sudo nmap -Pn -sn --traceroute -sS $host | tee -a "${log_dir}/error.log"
 
-  #if [ $status -eq 124 ]; then
-  #        echo "$host is probably unpingable..." | tee -a "${log_dir}/error.log"
-  #elif [ $status -ne 0 ]; then
-  #	echo "command failed with s#tatus: $status" | tee -a "${log_dir}/error.log"
-else
+elif [ $status -ne 0 ]; then
+  	echo "ping command failed with s#tatus: $status" | tee -a "${log_dir}/error.log"
+    echo "nmap deep scaning..."
+    sudo nmap -Pn -sn --traceroute -sS $host | tee -a "${log_dir}/error.log"
+fi
+
+#do the sending regardless:
   while IFS=, read -r field1
   do
     echo "Field 1: $field1"
@@ -140,5 +141,5 @@ else
     r1=$(split_send_sp "$hex_string" "$field1")
     sleep $((RANDOM % 60))
   done < "$csv_file"
-fi
+
 exit 0
