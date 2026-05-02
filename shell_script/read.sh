@@ -117,24 +117,26 @@ split_send_hp() {
 }
 
 
-timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
-status=$?
+#timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
+#status=$?
 
-if [ $status -eq 124 ]; then
-    echo "$host is probably unpingable..." | tee -a "${log_dir}/error.log"
-    echo "nmap deep scaning..."
+#if [ $status -eq 124 ]; then
+#    echo "$host is probably unpingable..." | tee -a "${log_dir}/error.log"
+#    echo "nmap deep scaning..."
     #sudo nmap -Pn -sn --traceroute  $host | tee -a "${log_dir}/error.log"
 
-elif [ $status -ne 0 ]; then
-  	echo "ping command failed with s#tatus: $status" | tee -a "${log_dir}/error.log"
+#elif [ $status -ne 0 ]; then
+#  	echo "ping command failed with s#tatus: $status" | tee -a "${log_dir}/error.log"
     #echo "nmap deep scaning..."
     #sudo nmap -Pn -sn --traceroute  $host | tee -a "${log_dir}/error.log"
-fi
+#fi
 
 #do the sending regardless:
-  while IFS=, read -r field1 field2
+  while IFS=, read -r field1 
   do
     echo "Field 1: $field1"
+    #echo ""
+    #echo "Field 2: $field2"
 
     sudo nmap -Pn -sn --data-string "$field1"  $host | tee -a "${log_dir}/error.log"
            
