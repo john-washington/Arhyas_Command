@@ -48,23 +48,23 @@ mkdir -p "${data_dir}"
 
 ##if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
 #if [[ $(wc -c < "$found" ) -eq 0 ]]; then
-	sudo nmap -Pn -sn --traceroute -oN ${host}_trace_result.tmp $host
-	cat ${host}_trace_result.tmp | bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
+	sudo nmap -Pn -sn --traceroute -oN "${data_dir}"/${host}_trace_result.tmp $host
+	cat "${data_dir}"/${host}_trace_result.tmp | bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
 	#traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 #else
 #	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 #fi
 
-found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.json" ) 
+#found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.json" ) 
 
 #if [ -f  "${data_dir}/${host}_trace_result.txt_geo_data.csv" ] && [ $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json") -gt 2]; then
-if [[ $(wc -c < "$found1" ) -eq 0  ||  $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json" ) -le 2 ]]; then
+#if [[ $(wc -c < "$found1" ) -eq 0  ||  $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json" ) -le 2 ]]; then
 	#bash ${shell_script}/ip-api.sh -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
 	"${shell_script}"/ip-api.sh.x -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
 
-else
-	echo "${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
-fi
+#else
+#	echo "${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
+#fi
 
 timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
 
