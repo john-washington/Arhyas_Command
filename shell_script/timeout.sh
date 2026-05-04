@@ -48,7 +48,9 @@ found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
 
 #if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
 if [[ $(wc -c < "$found" ) -eq 0 ]]; then
-	traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
+	sudo nmap -Pn -sn --traceroute -oN ${host}_trace_result.txt $host
+	cat ${host}_trace_result.tmp | bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
+	#traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 else
 	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 fi
