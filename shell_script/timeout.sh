@@ -48,8 +48,9 @@ mkdir -p "${data_dir}"
 
 ##if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
 #if [[ $(wc -c < "$found" ) -eq 0 ]]; then
-	sudo nmap -Pn -sn --traceroute -oN "${data_dir}"/${host}_trace_result.tmp $host
-	cat "${data_dir}"/${host}_trace_result.tmp | bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
+	sudo nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
+	xmlstarlet sel -t -v "//trace/hop/@ipaddr" "${data_dir}"/${host}_trace_result.xml > "${data_dir}/${host}_trace_result.txt"
+	#| bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
 	#traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 #else
 #	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
