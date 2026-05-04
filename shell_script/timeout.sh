@@ -44,16 +44,16 @@ export PATH
 mkdir -p "${log_dir}"
 mkdir -p "${data_dir}"
 
-found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
+#found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
 
-#if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
-if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+##if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
+#if [[ $(wc -c < "$found" ) -eq 0 ]]; then
 	sudo nmap -Pn -sn --traceroute -oN ${host}_trace_result.txt $host
 	cat ${host}_trace_result.tmp | bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
 	#traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
-else
-	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
-fi
+#else
+#	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
+#fi
 
 found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.json" ) 
 
