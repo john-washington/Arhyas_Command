@@ -48,7 +48,7 @@ mkdir -p "${data_dir}"
 
 ##if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
 #if [[ $(wc -c < "$found" ) -eq 0 ]]; then
-	sudo nmap -Pn -sn --traceroute -oN ${host}_trace_result.txt $host
+	sudo nmap -Pn -sn --traceroute -oN ${host}_trace_result.tmp $host
 	cat ${host}_trace_result.tmp | bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
 	#traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 #else
