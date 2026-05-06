@@ -48,16 +48,17 @@ mkdir -p "${data_dir}"
 
 ##if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
 #if [[ $(wc -c < "$found" ) -eq 0 ]]; then
-	#sudo nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
-	#xmlstarlet sel -t -v "//trace/hop/@ipaddr" "${data_dir}"/${host}_trace_result.xml > "${data_dir}/${host}_trace_result.txt"
+	sudo nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
+	xmlstarlet sel -t -v "//trace/hop/@ipaddr" "${data_dir}"/${host}_trace_result.xml > "${data_dir}/${host}_trace_result.txt"
 	#| bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
-	traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
+	#traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 #else
 #	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 #fi
 
 #found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.json" ) 
 
+#this is getting geo data for the trace items, we could implement our own api for this call
 #if [ -f  "${data_dir}/${host}_trace_result.txt_geo_data.csv" ] && [ $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json") -gt 2]; then
 #if [[ $(wc -c < "$found1" ) -eq 0  ||  $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json" ) -le 2 ]]; then
 	#bash ${shell_script}/ip-api.sh -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
@@ -67,22 +68,22 @@ mkdir -p "${data_dir}"
 #	echo "${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 #fi
 
-timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
+#timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
 
-status=$?
-if [ $status -eq 124 ]; then
-	echo "$1 is probably unpingable...";
+#status=$?
+#if [ $status -eq 124 ]; then
+#	echo "$1 is probably unpi#ngable...";
 	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
 	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 3 | bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
 	
-elif [ $status -ne 0 ]; then
-	echo "command failed with status: $status";
-	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
-	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 3 | bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
+#elif [ $status -ne 0 ]; then
+#	echo "command failed with status: $status";
+#	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
+#	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 3 | bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
 	
-else
-	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
-fi
+#else
+#	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
+#fi
 
 
 
