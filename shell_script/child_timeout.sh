@@ -35,6 +35,15 @@ case "$OS_NAME" in
         ;;
 esac
 
+#make it cycles many times to have 24/7 coverage
+for i in {1..12}
+do
+    cat $infile |  bash "${shell_script}"/append_code.sh  "${language_code}" | xargs -n 2  bash "${shell_script}"/timeout.sh 
+    SEC=$((RANDOM % 2400))
+    echo "Round ${i} scheduled, sleeping ${SEC} seconds..."
+    sleep $SEC
+done
 
-cat $infile |  bash "${shell_script}"/append_code.sh  "${language_code}" | xargs -n 2  bash "${shell_script}"/timeout.sh 
-   
+echo I have run the process 12 times. You can restart or quit.
+echo Thank you for using the program to stop Psychotronic Abuse!
+echo Please provide feedback if you would.
