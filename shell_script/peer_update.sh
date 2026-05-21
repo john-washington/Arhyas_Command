@@ -44,16 +44,22 @@ do
 	#echo ""
 	#echo "ssh -t pi@${pi_list[$i]} 'reboot'"
 	
-	echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command/log; mv error.log error.log.46000; mv Arhyas_Command.log Arhyas_Command.log.46000'"
-	echo "ssh -t pi@${pi_list[$i]} 'sudo apt install nmap"
-	
-	#echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command; mv data data.46000;'"
+	#echo "ssh -t pi@${pi_list[$i]} 'mv Arhyas_Command Arhyas_Command.46000; sudo apt install nmap'"
+
+	#echo "ssh -t pi@${pi_list[$i]} 'gunzip -cd Arhyas_Command.tar.gz | tar -xv'"
 	
 
 	#echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command/shell_script; ./ping_statistics.sh &'"
 	
 	#echo "ssh -t pi@${pi_list[$i]} 'sudo curl -fsSL https://install.julialang.org | sh -s;  . /home/pi/.bashrc '"
 	#echo "ssh -t pi@${pi_list[$i]} 'mv ~/Arhyas_Command ~/Arhyas_Command.bak; git clone https://github.peertalk.net:8899/jzhang/Arhyas_Command' "
+	
+	#echo "ssh -t pi@${pi_list[$i]} 'sudo apt install libxml2-utils' "
+	
+	#echo "ssh -t pi@${pi_list[$i]} 'mv ~/Arhyas_Command ~/Arhyas_Command.bak.washington.dc;'"
+	 
+	#echo "ssh -t pi@@${pi_list[$i]} 'git clone https://github.peertalk.net:8899/jzhang/Arhyas_Command;' "
+	
 	#echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command/shell_script; git pull' "
 	#echo "ssh pi@${pi_list[$i]} cat < ../tmp/ip-api.sh.x '>' ip-api.sh.x "
 	
@@ -66,18 +72,12 @@ do
 	#echo "ssh pi@${pi_list[$i]} cat < generate_ip_ping_stats.sh '>' generate_ip_ping_stats.sh "
 	#echo "ssh -t pi@${pi_list[$i]} 'cp ~/generate_ip_ping_stats.sh ~/Arhyas_Command/shell_script'; "
 	
-
-	#echo "ssh pi@${pi_list[$i]} cat < feed_to_parse_packet_loss.sh '>' feed_to_parse_packet_loss.sh "
-	#echo "ssh -t pi@${pi_list[$i]} 'cp ~/feed_to_parse_packet_loss.sh ~/Arhyas_Command/shell_script'; "
+	#echo "ssh -t pi@${pi_list[$i]} 'rm -rf Arhyas_Command.0; rm -rf Arhyas_Command.1; rm -rf Arhyas_Command.46000; rm -rf Arhyas_Command.bak; rm -rf Arhyas_Command.copy; rm -rf Arhyas_Command.tar.gz; rm -rf Arhyas_Command.washington.dc;'"
+	echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command; mv data data.18; cd ~/Arhyas_Command/log; mv error.log error.log.18; mv Arhyas_Command.log Arhyas_Command.log.18' "
 	
 	#echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command/shell_script; ./ping_statistics.sh' "
-	
-
 	#echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command/shell_script; chmod a+x ./feed_to_parse_packet_loss.sh; ./ping_statistics.sh &'"
-		
 	#echo "ssh -t pi@${pi_list[$i]} 'ps -A | grep 'ping''
-
-
 	#echo "ssh -t pi@${pi_list[$i]} 'cp ~/ip-api.sh.x ~/Arhyas_Command/shell_script' "
 	#echo "ssh -t pi@${pi_list[$i]} 'cp -R Arhyas_Command Arhyas_Command.copy' "
 done > jobs_to_run_3

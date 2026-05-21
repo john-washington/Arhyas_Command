@@ -6,7 +6,7 @@
 #PATH=$PATH:/opt/local/bin:/usr/bin:/usr/local/bin:/opt/local/sbin:/sbin
 #export $PATH
 
-#!parallel  --shebang-wrap /bin/bash
+#!parallel -j 4 --shebang-wrap /bin/bash
 host="$1"
 language_code="$2"
 

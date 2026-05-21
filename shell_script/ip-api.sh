@@ -107,7 +107,7 @@ while :; do
                    
                     export PGPASSWORD=xxxx
                     
-                    psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
+                    #psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
                    
                     command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
                     echo ${command_str2}
@@ -128,6 +128,7 @@ while :; do
                     total=$(cat center_${lat}_${lon}_${radius}_merged_list.txt | wc -l )
 
                     echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
+                    
                     echo "spliting ${total}/${#pi_list[@]} per chunk"
                     chunk=$((${total}/${#pi_list[@]}))
                     
@@ -223,6 +224,11 @@ while :; do
                     #merge the two 
                     cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
                     cat center_${lat}_${lon}_${radius}_merged_list.txt |  bash "${shell_script}"/append_code.sh  "${language_code}" >center_${lat}_${lon}_${radius}_${language_code}_merged_list.txt
+                    
+                    total=$(cat center_${lat}_${lon}_${radius}_merged_list.txt | wc -l )
+
+                    echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
+
                     cat center_${lat}_${lon}_${radius}_${language_code}_merged_list.txt | xargs -n 2  bash "${shell_script}"/timeout.sh 
                 
                    echo "I am done for -s case"
