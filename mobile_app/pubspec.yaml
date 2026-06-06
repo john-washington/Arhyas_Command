@@ -1,0 +1,15 @@
+name: arhyas_command
+
+description: >-
+  Arhyas Command Mobile app to track GPS coordinate as center of circle search
+  in the Digital Clone Vaporizing Scan.
+  
+dependencies:
+  flutter: 
+    sdk: flutter
+  geolocator: ^14.0.2
+  http: ^1.2.0
+  osm_path_tracker: ^0.0.5
+
+environment:
+    sdk: ^3.8.0-0
