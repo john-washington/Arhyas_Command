@@ -73,8 +73,11 @@ do
 	#echo "ssh -t pi@${pi_list[$i]} 'cp ~/generate_ip_ping_stats.sh ~/Arhyas_Command/shell_script'; "
 	
 	#echo "ssh -t pi@${pi_list[$i]} 'rm -rf Arhyas_Command.0; rm -rf Arhyas_Command.1; rm -rf Arhyas_Command.46000; rm -rf Arhyas_Command.bak; rm -rf Arhyas_Command.copy; rm -rf Arhyas_Command.tar.gz; rm -rf Arhyas_Command.washington.dc;'"
-	echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command; mv data data.18; cd ~/Arhyas_Command/log; mv error.log error.log.18; mv Arhyas_Command.log Arhyas_Command.log.18' "
+	#echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command; mv data data.10; cd ~/Arhyas_Command/log; mv error.log error.log.10; mv Arhyas_Command.log Arhyas_Command.log.10' "
 	
+	echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command; rm -rf data.*; cd ~/Arhyas_Command/log; rm error.log; rm error.log.*;' "
+	
+
 	#echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command/shell_script; ./ping_statistics.sh' "
 	#echo "ssh -t pi@${pi_list[$i]} 'cd ~/Arhyas_Command/shell_script; chmod a+x ./feed_to_parse_packet_loss.sh; ./ping_statistics.sh &'"
 	#echo "ssh -t pi@${pi_list[$i]} 'ps -A | grep 'ping''

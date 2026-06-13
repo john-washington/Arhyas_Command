@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 #connect Flask to Redis and RQ Task Queue
 redis_conn = Redis(host="localhost", port=6379)
-task_queue = Queue(connection=redis_conn)
+task_queue = Queue(connection=redis_conn, default_timeout='24h')
 
 @app.route('/', methods=['POST'])
 def run_script():

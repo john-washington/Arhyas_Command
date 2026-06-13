@@ -5,7 +5,7 @@
 
 inputfile="$2"
 
-mypasswd=$3
+#mypasswd=$3
 
 OS_NAME=$(uname -s)
 
@@ -28,8 +28,8 @@ case "$OS_NAME" in
 		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; sudo port install jq; }
         command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing...";  brew install postgresql; }
           
-                APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-                #APP_RES_DIR=~/Arhyas_Command
+                #APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+                APP_RES_DIR=~/Arhyas_Command
                 shell_script="${APP_RES_DIR}"/shell_script
                 data_dir="${APP_RES_DIR}/data"
                 txt_dir="${APP_RES_DIR}"/txt
@@ -46,7 +46,9 @@ PATH=$PATH:/opt/local/bin:/usr/bin
 export PATH
 
 
-args=`getopt abns: $*`
+
+#args=`getopt abnsw: $*`
+args=$(getopt -o bnsw: -- "$@")
 
 # you should not use `getopt abo: "$@"` since that would parse
 # the arguments differently from what the set command below does.
@@ -55,13 +57,15 @@ if [ $? -ne 0 ]; then
        echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -s <inputfilele> for gis circle search api or -n for network cluster with circle search master"
        exit 2
 fi
-set -- $args
+eval set -- "$args"
+
 # You cannot use the set command with a backquoted getopt directly,
 # since the exit code from getopt would be shadowed by those of set,
 # which is zero by definition.
-while :; do
+#while :; do
+while true; do
     case "$1" in
-       -a|-b)
+       -b|--batch)
                echo "flag $1 set"; 
                #sflags="${1#-}$sflags"
                #build list string here
@@ -72,16 +76,16 @@ while :; do
 
                command_str="curl http://ip-api.com/batch --data '${build_list}' | jq . > '${inputfile}_geo_data.json'"
                echo ${command_str}
-               eval "${command_str}"
+               #eval "${command_str}"
                
-               export PGPASSWORD=xxxx
+               export PGPASSWORD=eeZ1tooy
                
                #psql -h gis.peertalk.net -p 2048 -d osm -U featureserver -w -c "\copy arhyas_command_tracking(track) FROM PROGRAM 'jq -c -r .[] ${inputfile}_geo_data.json'"
 
                cd "${APP_RES_DIR}"
                shift;
                ;;
-       -n) #network cluster case
+       -n|--network) #network cluster case
             echo "oarg is '$2'"; oarg="$2"
         
             echo "calling gis api"
@@ -105,7 +109,7 @@ while :; do
                     
                     jq '.[] | .ip_range_start' "center_${lat}_${lon}_${radius}.json" | tr -d '"' > "center_${lat}_${lon}_${radius}.txt"
                    
-                    export PGPASSWORD=xxxx
+                    export PGPASSWORD=eeZ1tooy
                     
                     #psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
                    
@@ -128,7 +132,6 @@ while :; do
                     total=$(cat center_${lat}_${lon}_${radius}_merged_list.txt | wc -l )
 
                     echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
-                    
                     echo "spliting ${total}/${#pi_list[@]} per chunk"
                     chunk=$((${total}/${#pi_list[@]}))
                     
@@ -164,7 +167,7 @@ while :; do
                         else
                             pi=${pi_list[${#file_arry[@]}-${i}]}
                         fi  
-                        echo "sshpass -ppi123 ssh -t pi@${pi} 'cd ~/Arhyas_Command; tar -czvf data.tar.gz data; rm -rf data ; mkdir -p data; cp ~/${file_arry[$i]} ~/Arhyas_Command/data; echo 'pi' |  ~/Arhyas_Command/shell_script/child_timeout.sh ~/Arhyas_Command/data/${file_arry[$i]}' &"
+                        echo "ssh -t pi@${pi} 'cd ~/Arhyas_Command; tar -czvf data.tar.gz data; rm -rf data ; mkdir -p data; cp ~/${file_arry[$i]} ~/Arhyas_Command/data; ~/Arhyas_Command/shell_script/child_timeout.sh ~/Arhyas_Command/data/${file_arry[$i]}' &"
                           
                     done > jobs_to_run_2
 
@@ -181,9 +184,66 @@ while :; do
                     echo "I am done for -N case. Monitor Remote Peer Seperately with ssh"
                 done < "$inputfile"
 
-                shift;
+                shift 2
                 ;;
-    -s) #single instance case
+        -w|--web) #web service case
+                DATA_ITEMS="$2"
+                IFS=',' read -r  lat lon radius language_code <<< "$DATA_ITEMS"
+                echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
+
+                #IFS=',' read -r -a VALUE_ARRAY  <<< "$DATA_ITEMS"
+                #for item in "${VALUE_ARRAY[@]}"; do
+                #  echo " - $item"
+                #done
+                #exit 1
+
+                cd "${data_dir}"
+
+                #special case conversion
+                if [[ ${language_code} -eq 'zh' ]]; then
+                    language_code='zh_cn'
+                fi
+
+                    #if [[ ${language_code} -eq 'pt' ]]; then
+                    #    language_code='pt_br'
+                    #fi
+
+                command_str="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
+                echo ${command_str}
+                eval "${command_str} | jq . > 'center_${lat}_${lon}_${radius}.json'"
+
+                jq '.[] | .ip_range_start' "center_${lat}_${lon}_${radius}.json" | tr -d '"' > "center_${lat}_${lon}_${radius}.txt"
+
+                export PGPASSWORD=eeZ1tooy
+                    #psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
+
+                command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
+                echo ${command_str2}
+                eval "${command_str2} | jq . > 'center_${lat}_${lon}_${language_code}_${radius}.json'"
+
+                jq '.[] | .network' "center_${lat}_${lon}_${language_code}_${radius}.json" | tr -d '"' | sed  's/\/[0-9]\{1,\}//g' > "center_${lat}_${lon}_${language_code}_${radius}.txt"
+
+                    #psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result_language_coded(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${language_code}_${radius}.json'"
+
+                    # -s mode for single instance direct execution 
+                cd "${data_dir}"
+                    #merge the two 
+                    #cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
+
+                    #merge the two 
+                cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
+                cat center_${lat}_${lon}_${radius}_merged_list.txt | "${shell_script}"/append_code.sh  "${language_code}" > center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt
+
+                total=$(cat center_${lat}_${lon}_${radius}_merged_list.txt | wc -l )
+
+                echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
+
+                cat center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt | xargs -n 2  bash "${shell_script}"/timeout.sh
+                echo "I am done for -w case"
+ 
+                shift 2
+                ;;
+    -s|--single) #single instance case
                 echo "oarg is '$2'"; oarg="$2"
         
                 echo "calling gis api"
@@ -207,7 +267,7 @@ while :; do
                     
                     jq '.[] | .ip_range_start' "center_${lat}_${lon}_${radius}.json" | tr -d '"' > "center_${lat}_${lon}_${radius}.txt"
                    
-                    export PGPASSWORD=xxxx
+                    export PGPASSWORD=eeZ1tooy
                     
                     #psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
                    
@@ -222,19 +282,22 @@ while :; do
                     # -s mode for single instance direct execution 
                     cd "${data_dir}"
                     #merge the two 
+                    #cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
+
+                    #merge the two 
                     cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
-                    cat center_${lat}_${lon}_${radius}_merged_list.txt |  bash "${shell_script}"/append_code.sh  "${language_code}" >center_${lat}_${lon}_${radius}_${language_code}_merged_list.txt
-                    
+                    cat center_${lat}_${lon}_${radius}_merged_list.txt | "${shell_script}"/append_code.sh  "${language_code}" > center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt
+
                     total=$(cat center_${lat}_${lon}_${radius}_merged_list.txt | wc -l )
 
                     echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
 
-                    cat center_${lat}_${lon}_${radius}_${language_code}_merged_list.txt | xargs -n 2  bash "${shell_script}"/timeout.sh 
+                    cat center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt | xargs -n 2  bash "${shell_script}"/timeout.sh 
                 
                    echo "I am done for -s case"
                 done < "$inputfile"
 
-                shift;
+                shift 2
                 ;;
        --)
                echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -s <inputfilele> for gis circle search api, or ip-api.sh -n for network cluster mode with circle search master"
