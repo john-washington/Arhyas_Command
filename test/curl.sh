@@ -1,0 +1,1 @@
+curl --header "Content-Type: application/json" --request POST --data '{"deviceId":"pi-p", "latitude":21.278146, "longitude":110.353851, "searchDistanceKm":600, "searchText":"zh"}'  http://192.168.1.179:5000/grid_master/ 

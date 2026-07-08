@@ -85,6 +85,70 @@ while true; do
                cd "${APP_RES_DIR}"
                shift;
                ;;
+       -g|--grid) #compute grid on webservice queue
+               echo "oarg is '$2'"; oarg="$2"
+               echo "calling gis api"
+               DATA_ITEMS="$2"
+               IFS=',' read -r  lat lon radius language_code <<< "$DATA_ITEMS"
+               echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
+            
+               cd "${data_dir}"
+
+               #special case conversion
+               if [[ ${language_code} -eq 'zh' ]]; then
+                   language_code='zh_cn'
+               fi
+
+               #if [[ ${language_code} -eq 'pt' ]]; then
+               #    language_code='pt_br'
+               #fi
+
+               command_str="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
+               echo ${command_str}
+               eval "${command_str} | jq . > 'center_${lat}_${lon}_${radius}.json'"
+            
+               jq '.[] | .ip_range_start' "center_${lat}_${lon}_${radius}.json" | tr -d '"' > "center_${lat}_${lon}_${radius}.txt"
+           
+               export PGPASSWORD=eeZ1tooy
+            
+               #psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${radius}.json'"
+           
+               command_str2="curl 'http://gis.peertalk.net:9080/functions/public.circle_search_on_centerpoint_${language_code}/items?center_latitude=${lat}&center_longitude=${lon}&radius=${radius}&limit=50000'"
+               echo ${command_str2}
+               eval "${command_str2} | jq . > 'center_${lat}_${lon}_${language_code}_${radius}.json'"
+          
+               jq '.[] | .network' "center_${lat}_${lon}_${language_code}_${radius}.json" | tr -d '"' | sed  's/\/[0-9]\{1,\}//g' > "center_${lat}_${lon}_${language_code}_${radius}.txt"
+          
+               #psql -h gis.peertalk.net  -p 2048 -d osm -U featureserver -w -c "\copy circle_search_result_language_coded(result) FROM PROGRAM 'jq -c -r .[] center_${lat}_${lon}_${language_code}_${radius}.json'"
+            
+               #from here it is differnt than the -s case
+           
+               pi_list=($(cat "${config_dir}"/peer_list.txt | "${shell_script}"/parse_peer_config.sh ))
+               cd "${data_dir}"
+
+               #merge the two 
+               cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
+
+               total=$(cat center_${lat}_${lon}_${radius}_merged_list.txt | wc -l )
+
+               echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
+               echo "spliting ${total}/${#pi_list[@]} per chunk"
+               chunk=$((${total}/${#pi_list[@]}))
+            
+               split -l $chunk center_${lat}_${lon}_${radius}_merged_list.txt center_${lat}_${lon}_${radius}_
+            
+               ls center_${lat}_${lon}_${radius}_* >  center_${lat}_${lon}_${radius}_chunk_filelist.txt
+           
+               #make array in  
+               file_arry=($(cat center_${lat}_${lon}_${radius}_chunk_filelist.txt))
+            
+               #here we make and return file_arry as json  object
+               return_json_obj=$(cat center_${lat}_${lon}_${radius}_chunk_filelist.txt | jq -R . | jq -s . )
+            
+               echo ${return_json_obj}
+               
+               shift;
+               ;;
        -n|--network) #network cluster case
             echo "oarg is '$2'"; oarg="$2"
         
@@ -168,7 +232,7 @@ while true; do
                             pi=${pi_list[${#file_arry[@]}-${i}]}
                         fi  
                         echo "ssh -t pi@${pi} 'cd ~/Arhyas_Command; tar -czvf data.tar.gz data; rm -rf data ; mkdir -p data; cp ~/${file_arry[$i]} ~/Arhyas_Command/data; ~/Arhyas_Command/shell_script/child_timeout.sh ~/Arhyas_Command/data/${file_arry[$i]}' &"
-                          
+			            
                     done > jobs_to_run_2
 
                     echo "spawning job 1 remote tasks in parallel mode:"
