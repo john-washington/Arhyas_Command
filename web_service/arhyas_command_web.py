@@ -9,7 +9,6 @@ from task import run_shell_script
 import json
 #import ijson
 import jq
-import requests
 import sys
 import math
 #sys.path = [p for p in sys.path if "/usr/lib" not in p]
