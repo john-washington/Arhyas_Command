@@ -1,3 +1,4 @@
+import requests
 import subprocess
 from flask import Flask, request, jsonify
 from redis import Redis
