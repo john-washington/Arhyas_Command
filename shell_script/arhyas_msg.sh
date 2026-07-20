@@ -31,10 +31,10 @@ case "$OS_NAME" in
       #command -v git >/dev/null 2>&1 || { echo >&2 "I require git but it is not installed. Please install git by port install git(mac). installing..."; echo $mypasswd | sudo -S port install git | tee -a "${APP_RES_DIR}"/arhyas_command.log; }
       #command -v logrotate >/dev/null 2>&1 || { echo >&2 "I require logrotate but it is not installed. Please install logrotate by port install logrotate(mac) or apt install logrotate(linux). installing..."; echo $mypasswd | sudo -S port install logrotate | tee -a "${APP_RES_DIR}"/arhyas_command.log; }
       
-      APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-      shell_script="${APP_RES_DIR}"
+      APP_RES_DIR="/Applications/Arhyas_Command_Multilingual_for_MacOS.app/Contents/Resources"
+      shell_script="${APP_RES_DIR}/shell_script"
       data_dir="${APP_RES_DIR}/data"
-      txt_dir="${APP_RES_DIR}"/txt
+      txt_dir="${APP_RES_DIR}/txt"
       log_dir="${APP_RES_DIR}/log"
        ;;
   *)

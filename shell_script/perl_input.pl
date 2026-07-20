@@ -21,3 +21,4 @@ sub dialog {
 }
 
 my $result = dialog("Life, the universe and everything?", "42");
+print STDOUT $mypasswd

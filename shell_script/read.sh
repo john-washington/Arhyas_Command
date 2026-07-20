@@ -17,7 +17,7 @@ case "$OS_NAME" in
   Darwin*)
     command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout;}
    
-    APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+    APP_RES_DIR="/Applications/Arhyas_Command_Multilingual_for_MacOS.app/Contents/Resources"
     data_dir="${APP_RES_DIR}/data"
     txt_dir="${APP_RES_DIR}"/txt
     log_dir="${APP_RES_DIR}/log"
@@ -138,7 +138,7 @@ split_send_hp() {
     #echo ""
     #echo "Field 2: $field2"
 
-    sudo nmap -Pn -sn --data-string "$field1"  $host | tee -a "${log_dir}/error.log"
+    nmap -Pn -sn --data-string "$field1"  $host | tee -a "${log_dir}/error.log"
            
     hex_string=$(str_to_hex "$field1")
     echo "$hex_string"

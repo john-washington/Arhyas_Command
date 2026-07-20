@@ -23,8 +23,10 @@ sub dialog {
 }
 
 my $mypasswd = dialog("Please enter administrative password:", "xxx");
-
-
+#chomp $mypasswd;
+#ReadMode('restore')
+#print STDOUT $mypasswd
+print $mypasswd
 #chomp $mypasswd;
 
 # Execute the first command
@@ -33,12 +35,14 @@ my $mypasswd = dialog("Please enter administrative password:", "xxx");
     
 
 # Main execution
+
 #if ($mypasswd) {
     # Using the simpler approach that mimics bash behavior
     #run_simple_version($mypasswd);
     # Direct system call similar to bash
-    system("./dependency_check.sh", $mypasswd);
-        
+    #system("./dependency_check.sh", $mypasswd);
+#    system("./arhyas_command_mac.sh", $mypasswd);
+     
 #} else {
 #    die "No mypasswd provided!\n";
 #}

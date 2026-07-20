@@ -5,6 +5,7 @@
 
 host="$1"
 code="$2"
+mypasswd="$3"
 
 OS_NAME=$(uname -s)
 
@@ -14,7 +15,7 @@ case "$OS_NAME" in
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo apt install traceroute; }
 		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo apt install curl; }
 		APP_RES_DIR=~/Arhyas_Command
-		shell_script="${APP_RES_DIR}"/shell_script
+        \shell_script="${APP_RES_DIR}"/shell_script
 		data_dir="${APP_RES_DIR}"/data
 		txt_dir="${APP_RES_DIR}"/txt
 		log_dir="${APP_RES_DIR}"/log
@@ -24,7 +25,7 @@ case "$OS_NAME" in
 		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout; }
 		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo port install traceroute; }
 		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo port install curl; }
-		APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
+		APP_RES_DIR="/Applications/Arhyas_Command_Multilingual_for_MacOS.app/Contents/Resources"
 		shell_script="${APP_RES_DIR}"/shell_script
 		data_dir="${APP_RES_DIR}/data"
 		txt_dir="${APP_RES_DIR}"/txt
@@ -44,29 +45,30 @@ export PATH
 mkdir -p "${log_dir}"
 mkdir -p "${data_dir}"
 
-#found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
+found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
 
 ##if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
-#if [[ $(wc -c < "$found" ) -eq 0 ]]; then
-	sudo nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
+if [[ $(wc -c < "$found" ) -eq 0 ]]; then
+    
+    echo   $mypasswd | sudo -S nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
 	xmlstarlet sel -t -v "//trace/hop/@ipaddr" "${data_dir}"/${host}_trace_result.xml > "${data_dir}/${host}_trace_result.txt"
 	#| bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
 	#traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
-#else
-#	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
-#fi
+else
+	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
+fi
 
-#found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.json" ) 
+found1=$(find "${data_dir}" -type f -name "${host}_trace_result.txt_geo_data.json" )
 
 #this is getting geo data for the trace items, we could implement our own api for this call
 #if [ -f  "${data_dir}/${host}_trace_result.txt_geo_data.csv" ] && [ $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json") -gt 2]; then
-#if [[ $(wc -c < "$found1" ) -eq 0  ||  $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json" ) -le 2 ]]; then
+if [[ $(wc -c < "$found1" ) -eq 0  ||  $(wc -c < "${data_dir}/${host}_trace_result.txt_geo_data.json" ) -le 2 ]]; then
 	#bash ${shell_script}/ip-api.sh -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
 	"${shell_script}"/ip-api.sh.x -b "${host}_trace_result.txt" | tee -a "${log_dir}/Arhyas_Command.log"
 
-#else
-#	echo "${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
-#fi
+else
+	echo "${host}_trace_result.txt_geo_data.json already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
+fi
 
 #timeout 15 ping -c 6 $host | tee -a "${log_dir}/error.log"
 

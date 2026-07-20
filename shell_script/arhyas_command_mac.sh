@@ -4,7 +4,7 @@
 #export $PATH
 
 #read mypasswd
-#perl arhyas_command_mac.pl
+
 
 target=$1
 
@@ -34,8 +34,8 @@ case "$OS_NAME" in
       command -v whois >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux).  please run dependency_check.sh. existing...";  port install whois;  }
       #command -v csvcut >/dev/null 2>&1 || { echo >&2 "I require whois but it is not installed. Please install whois by port install csvcut(mac) or apt install csvcut(linux).  please run dependency_check.sh. existing...";  port install csvcut;  }
       
-      #APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-      APP_RES_DIR=~/Arhyas_Command
+      APP_RES_DIR="/Applications/Arhyas_Command_Multilingual_for_MacOS.app/Contents/Resources"
+      #APP_RES_DIR=~/Arhyas_Command
       script_dir="${APP_RES_DIR}"/shell_script
       log_dir="${APP_RES_DIR}/log"
       data_dir="${APP_RES_DIR}/data"
@@ -43,6 +43,13 @@ case "$OS_NAME" in
   *)
     ;;
 esac
+
+#read mypasswd
+#perl ${script_dir}/arhyas_command_mac.pl >> mypasswd
+#mypasswd=$(perl ${script_dir}/arhyas_command_mac.pl)
+#mypasswd=$(perl arhyas_command_mac.pl)
+#echo $mypasswd
+#mypasswd=$(perl arhyas_command_mac.pl)
 
 mkdir -p "${log_dir}"
 
@@ -59,22 +66,23 @@ mkdir -p "${data_dir}"
 
 echo Please drop target address files
 
-#read target_addr
+#read target_addrff
 column_count=$(head -1 "${target}" | tr -cd ' ' | wc -c | awk '{print $1+1}' )
 
 echo processing "$target"...
 echo "column count" "${column_count}"
 
 if [ $column_count -eq 4 ]; then
-  #bash ./ip-api.sh -s "${target}" | tee -a "${log_dir}/Arhyas_Command.log"
+  echo "case 4 column"
+  bash ${script_dir}/ip-api.sh -s "${target}" | tee -a "${log_dir}/Arhyas_Command.log"
   #network cluster mode
-  cm="${script_dir}/ip-api.sh.x -n ${target} | tee -a ${log_dir}/Arhyas_Command.log"
+  #cm="${script_dir}/ip-api.sh.x -n ${target} | tee -a ${log_dir}/Arhyas_Command.log"
   
   #single instance mode
   #cm="${script_dir}/ip-api.sh.x -s ${target} | tee -a ${log_dir}/Arhyas_Command.log"
   
-  echo ${cm}
-  eval ${cm}
+  #echo ${cm}
+  #eval ${cm}
 
 elif [ $column_count -eq 2 ]; then
 

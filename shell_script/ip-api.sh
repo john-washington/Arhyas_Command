@@ -3,9 +3,10 @@
 #PATH=$PATH:/opt/local/bin:/usr/bin:/usr/local/bin:/opt/local/sbin:/sbin
 #export $PATH
 
+#$1 is the flag, -s, -b, -n, -w
 inputfile="$2"
 
-#mypasswd=$3
+#mypasswd="$3"
 
 OS_NAME=$(uname -s)
 
@@ -28,8 +29,8 @@ case "$OS_NAME" in
 		command -v jq >/dev/null 2>&1 || { echo >&2 "I require jq but it is not installed. Please install jq by: port install jp(mac) or apt install jq(linux). installing..."; sudo port install jq; }
         command -v psql >/dev/null 2>&1 || { echo >&2 "I require psql but it is not installed. Please install psql by: brew install libpq(mac). installing...";  brew install postgresql; }
           
-                #APP_RES_DIR="/Applications/Arhyas Command Multilingual for MacOS 11+.app/Contents/Resources"
-                APP_RES_DIR=~/Arhyas_Command
+                APP_RES_DIR="/Applications/Arhyas_Command_Multilingual_for_MacOS.app/Contents/Resources"
+                #APP_RES_DIR=~/Arhyas_Command
                 shell_script="${APP_RES_DIR}"/shell_script
                 data_dir="${APP_RES_DIR}/data"
                 txt_dir="${APP_RES_DIR}"/txt
@@ -47,8 +48,8 @@ export PATH
 
 
 
-#args=`getopt abnsw: $*`
-args=$(getopt -o bnsw: -- "$@")
+args=`getopt bnsw: $*`
+#args=$(getopt -o bnsw: -- "$@")
 
 # you should not use `getopt abo: "$@"` since that would parse
 # the arguments differently from what the set command below does.
@@ -57,47 +58,55 @@ if [ $? -ne 0 ]; then
        echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -s <inputfilele> for gis circle search api or -n for network cluster with circle search master"
        exit 2
 fi
-eval set -- "$args"
+set -- $args
 
 # You cannot use the set command with a backquoted getopt directly,
 # since the exit code from getopt would be shadowed by those of set,
 # which is zero by definition.
-#while :; do
-while true; do
+while :; do
+#while true; do
     case "$1" in
        -b|--batch)
+               
                echo "flag $1 set"; 
+               shift 2
                #sflags="${1#-}$sflags"
                #build list string here
-               echo "${inputfile}"
+               #echo "${inputfile}"
+               #echo "$1"
                cd "${data_dir}"
+               inputfile=$1
 
                build_list=$(cat "${inputfile}" | jq -R . | jq -s . )
+               
+               echo "${build_list}"
 
                command_str="curl http://ip-api.com/batch --data '${build_list}' | jq . > '${inputfile}_geo_data.json'"
                echo ${command_str}
-               #eval "${command_str}"
+               eval "${command_str}"
                
-               export PGPASSWORD=eeZ1tooy
+               #export PGPASSWORD=eeZ1tooy
                
-               #psql -h gis.peertalk.net -p 2048 -d osm -U featureserver -w -c "\copy arhyas_command_tracking(track) FROM PROGRAM 'jq -c -r .[] ${inputfile}_geo_data.json'"
+               #psql -h gis.peertalk.net -p 2048 -d osm -U featureserver -w -c \copy arhyas_command_tracking(track) FROM PROGRAM 'jq -c #-${inputfile}_geo_data.json'"
 
                cd "${APP_RES_DIR}"
-               shift;
+               #shift;
+               break;
                ;;
        -g|--grid) #compute grid on webservice queue
                echo "oarg is '$2'"; oarg="$2"
                echo "calling gis api"
-               DATA_ITEMS="$2"
+               shift 2;
+               DATA_ITEMS="$1"
                IFS=',' read -r  lat lon radius language_code <<< "$DATA_ITEMS"
                echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
             
                cd "${data_dir}"
 
                #special case conversion
-               if [[ ${language_code} -eq 'zh' ]]; then
-                   language_code='zh_cn'
-               fi
+               #if [[ ${language_code} -eq 'zh' ]]; then
+               #    language_code='zh_cn'
+               #fi
 
                #if [[ ${language_code} -eq 'pt' ]]; then
                #    language_code='pt_br'
@@ -146,12 +155,13 @@ while true; do
                return_json_obj=$(cat center_${lat}_${lon}_${radius}_chunk_filelist.txt | jq -R . | jq -s . )
             
                echo ${return_json_obj}
-               
-               shift;
+               break;
+               #shift;
                ;;
        -n|--network) #network cluster case
             echo "oarg is '$2'"; oarg="$2"
-        
+            shift 2;
+            inputfile=$1
             echo "calling gis api"
                 while IFS=' ' read -r lat lon radius language_code;
                   do
@@ -159,9 +169,9 @@ while true; do
                     cd "${data_dir}"
 
                     #special case conversion
-                    if [[ ${language_code} -eq 'zh' ]]; then
-                        language_code='zh_cn'
-                    fi
+                    #if [[ ${language_code} -eq 'zh' ]]; then
+                    #    language_code='zh_cn'
+                    #fi
 
                     #if [[ ${language_code} -eq 'pt' ]]; then
                     #    language_code='pt_br'
@@ -247,11 +257,12 @@ while true; do
 
                     echo "I am done for -N case. Monitor Remote Peer Seperately with ssh"
                 done < "$inputfile"
-
-                shift 2
+                break;
+                #shift 2
                 ;;
         -w|--web) #web service case
-                DATA_ITEMS="$2"
+                shift 2;
+                DATA_ITEMS="$1"
                 IFS=',' read -r  lat lon radius language_code <<< "$DATA_ITEMS"
                 echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
 
@@ -304,22 +315,27 @@ while true; do
 
                 cat center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt | xargs -n 2  bash "${shell_script}"/timeout.sh
                 echo "I am done for -w case"
- 
-                shift 2
+                break;
+                #shift 2
                 ;;
     -s|--single) #single instance case
+                shift 2
                 echo "oarg is '$2'"; oarg="$2"
-        
-                echo "calling gis api"
-                while IFS=' ' read -r lat lon radius language_code;
-                do
+                #mypasswd="$2"
+                echo "calling gis api" "$1"
+                
+                IFS=' ' read -r  lat lon radius language_code < "$1"
+                #echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
+
+                #while IFS=' ' read -r lat lon radius language_code;
+                #do
                     echo "latidue: $lat longitude: $lon radius: $radius code: $language_code"
                     cd "${data_dir}"
 
                     #special case conversion
-                    if [[ ${language_code} -eq 'zh' ]]; then
-                        language_code='zh_cn'
-                    fi
+                    #if [[ ${language_code} -eq 'zh' ]]; then
+                    #    language_code='zh_cn'
+                    #fi
 
                     #if [[ ${language_code} -eq 'pt' ]]; then
                     #    language_code='pt_br'
@@ -348,24 +364,29 @@ while true; do
                     #merge the two 
                     #cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
 
-                    #merge the two 
+                    #merge the two
+                    #perl "${shell_script}"/arhyas_command_mac.pl >> mypasswd
+                    mypasswd=$(perl "${shell_script}"/arhyas_command_mac.pl | tr -d '0' | tr -d '\n')
+                    echo "${mypasswd}"
+                    
                     cat center_${lat}_${lon}_${radius}.txt center_${lat}_${lon}_${language_code}_${radius}.txt >> center_${lat}_${lon}_${radius}_merged_list.txt
-                    cat center_${lat}_${lon}_${radius}_merged_list.txt | "${shell_script}"/append_code.sh  "${language_code}" > center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt
+                    cat center_${lat}_${lon}_${radius}_merged_list.txt | "${shell_script}"/append_code.sh  "${language_code}"  "${mypasswd}" > center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt
 
                     total=$(cat center_${lat}_${lon}_${radius}_merged_list.txt | wc -l )
 
                     echo "total items around the center: "${lat}_${lon}_${radius}": ${total}"
-
-                    cat center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt | xargs -n 2  bash "${shell_script}"/timeout.sh 
+                   
+                    cat center_${lat}_${lon}_${radius}_merged_list_"${language_code}".txt | xargs -n 3  bash "${shell_script}"/timeout.sh
                 
                    echo "I am done for -s case"
-                done < "$inputfile"
-
-                shift 2
+                #done < "$1"
+                break;
+                #shift 2
                 ;;
        --)
                echo "Usage: ip-api.sh -b <inputfile> for batch api or ip-api.sh -s <inputfilele> for gis circle search api, or ip-api.sh -n for network cluster mode with circle search master"
-               shift; break
+               shift;
+               break;
                ;;
        esac
 done

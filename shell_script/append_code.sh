@@ -1,15 +1,17 @@
 #!/bin/bash
 code="$1"
+passwd="$2"
+
 count=0
 while IFS=  read -r line; do
   #echo "processing: $line"
-  #if [[ $count -gt 2 ]]; then
+  if [[ $count -gt 2 ]]; then
     for word in $line; do
       #if [[ $word =~ ^[a-zA-Z|0-9]{1,3}\.[a-zA-Z|0-9]{1,3}\.[a-zA-Z|0-9]{1,3}(\.[0-9]{1,3})?$ ]]; then
-      echo "$word" $code
+      echo "$word" $code $passwd'\n'
       #fi
     done
-  #fi
+  fi
   ((count++))
 done 
 
