@@ -11,9 +11,9 @@ OS_NAME=$(uname -s)
 
 case "$OS_NAME" in
 	Linux*)
-		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo apt install timeout; }
-		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo apt install traceroute; }
-		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo apt install curl; }
+		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; echo $mypasswd | sudo -S apt install timeout; }
+		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; echo $mypasswd | sudo -S apt install traceroute; }
+		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; echo $mypasswd | sudo -S apt install curl; }
 		APP_RES_DIR=~/Arhyas_Command
         \shell_script="${APP_RES_DIR}"/shell_script
 		data_dir="${APP_RES_DIR}"/data
@@ -22,9 +22,9 @@ case "$OS_NAME" in
 		TEMP_DIR=~/Documents/Arhyas_Command
 		;;
 	Darwin*)
-		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout; }
-		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; sudo port install traceroute; }
-		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; sudo port install curl; }
+		command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; echo $mypasswd | sudo -S port install timeout; }
+		command -v traceroute >/dev/null 2>&1 || { echo >&2 "I require traceroute but it is not installed. Please install timeout by: port install traceroute(mac) or apt install traceroute(linux). installing..."; echo $mypasswd | sudo -S port install traceroute; }
+		command -v curl >/dev/null 2>&1 || { echo >&2 "I require curl but it is not installed. Please install whois by port install whois(mac) or apt install whois(linux). installing..."; echo $mypasswd | sudo -S port install curl; }
 		APP_RES_DIR="/Applications/Arhyas_Command_Multilingual_for_MacOS.app/Contents/Resources"
 		shell_script="${APP_RES_DIR}"/shell_script
 		data_dir="${APP_RES_DIR}/data"
@@ -50,10 +50,13 @@ found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
 ##if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
 if [[ $(wc -c < "$found" ) -eq 0 ]]; then
     
-    echo   $mypasswd | sudo -S nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
-	xmlstarlet sel -t -v "//trace/hop/@ipaddr" "${data_dir}"/${host}_trace_result.xml > "${data_dir}/${host}_trace_result.txt"
-	#| bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
-	#traceroute  $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
+    #echo   $mypasswd | sudo -S nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
+    echo   $mypasswd | sudo -S nmap --traceroute -Pn -PA80,443 -oX "${data_dir}"/${host}_trace_result.xml $host
+    
+    xmlstarlet sel -t -v "//trace/hop/@ipaddr" "${data_dir}"/${host}_trace_result.xml  > "${data_dir}/${host}_trace_result.txt"
+	
+    #| bash ${shell_script}/tracelist_nmap.sh > "${data_dir}/${host}_trace_result.txt"
+	#traceroute -m 15 $host |  bash ${shell_script}/tracelist.sh > "${data_dir}/${host}_trace_result.txt"
 else
 	echo "${data_dir}/${host}_trace_result.txt already exist and not empty" | tee -a "${log_dir}/Arhyas_Command.log"
 fi
@@ -75,13 +78,13 @@ fi
 #status=$?
 #if [ $status -eq 124 ]; then
 #	echo "$1 is probably unpi#ngable...";
-	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
-	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 3 | bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
+	bash "${shell_script}"/arhyas_msg.sh "$host" "$code" "$mypasswd"
+	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 3 | bash "${shell_script}"/append_code.sh  "$code" "$mypasswd" |  xargs -n 3 bash  "${shell_script}"/arhyas_msg.sh
 	
 #elif [ $status -ne 0 ]; then
 #	echo "command failed with status: $status";
 #	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  
-#	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 3 | bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash  "${shell_script}"/arhyas_msg.sh 
+#	cat "${data_dir}/${host}_trace_result.txt" |  tail -n 3 | bash "${shell_script}"/append_code.sh  "$code" |  xargs -n 2 bash "${shell_script}"/arhyas_msg.sh
 	
 #else
 #	bash "${shell_script}"/arhyas_msg.sh "$host" "$code"  

@@ -31,7 +31,9 @@ export PATH
 
 csv_file="$1"
 host="$2"
+mypasswd="$3"
 
+echo "processing prayer article:" "$csv_file" "$host" "$mypasswd"
  
 mkdir -p "${log_dir}"
 
@@ -45,8 +47,8 @@ split_send_sp() {
     echo "byte count: $wc_byte" 
 
     if [[ $wc_byte -le 16 ]]; then
-      ping -c 6 -p "$1" $host | tee -a "${log_dir}/error.log"
-      #sudo nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
+      #ping -c 6 -p "$1" $host | tee -a "${log_dir}/error.log"
+      echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
            
     else
       
@@ -61,13 +63,13 @@ split_send_sp() {
         echo "byte count2: $wc_byte2" | tee -a "${log_dir}/Arhyas_Command.log"
 
         if [[ $wc_byte2 -le 16 ]]; then
-          ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-          #sudo nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
+          #ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
+          echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
            
         else
-           echo "warning: $part encoded to $my_hex_string is too long for transmission, try sending anyway..." | tee -a "${log_dir}/error.log"
-           ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-           #sudo nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
+           echo "warning: ${part} encoded to ${my_hex_string} is too long for transmission, try sending anyway..." | tee -a "${log_dir}/error.log"
+           #ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
+           echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
            
            #r=$(split_send_hp "$my_hex_string" "$part")
         fi
@@ -84,8 +86,8 @@ split_send_hp() {
     echo "byte count: $wc_byte" 
 
     if [[ $wc_byte -le 16 ]]; then
-      ping -c 6 -p "$1" $host | tee -a "${log_dir}/error.log"
-      #sudo nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
+      #ping -c 6 -p "$1" $host | tee -a "${log_dir}/error.log"
+      echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
            
     else
       
@@ -100,13 +102,13 @@ split_send_hp() {
         echo "byte count2: $wc_byte2" | tee -a "${log_dir}/Arhyas_Command.log"
 
         if [[ $wc_byte2 -le 16 ]]; then
-          ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-          #sudo nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
+          #ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
+          echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
            
         else
            echo "warning: $part encoded to $my_hex_string is too long for transmission, sending..." | tee -a "${log_dir}/error.log"
-           ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-           #sudo nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
+           #ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
+           echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  $host | tee -a "${log_dir}/error.log"
            
            #r=$(split_send_sp "$my_hex_string" "$part")
         fi
@@ -138,7 +140,7 @@ split_send_hp() {
     #echo ""
     #echo "Field 2: $field2"
 
-    nmap -Pn -sn --data-string "$field1"  $host | tee -a "${log_dir}/error.log"
+    echo "$mypasswd" | sudo -S nmap -Pn -sn --data-string "$field1"  $host | tee -a "${log_dir}/error.log"
            
     hex_string=$(str_to_hex "$field1")
     echo "$hex_string"
