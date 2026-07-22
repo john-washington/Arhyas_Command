@@ -44,7 +44,7 @@ DATA_ITEMS="$2"
 
 #mypasswd=$(perl "${shell_script}"/arhyas_command_mac.pl | tr -d '0' | tr -d '\n')
 #will do password encription later
-mypasswd <<< cat "${config_dir}"/passwd
+mypasswd <<< cat "${config_dir}"/passwd.txt
 #echo "enter sudo passwd:"
 #read mypasswd
 
