@@ -2,7 +2,20 @@
 
 #infile=$1
 #language_code=$2
+language_code="$1"
+DATA_ITEMS="$2"
+#echo "what I am getting:"
+#echo "${DATA_ITEMS}"
+#echo "\n"
 
+#mypasswd=$(perl "${shell_script}"/arhyas_command_mac.pl | tr -d '0' | tr -d '\n')
+#will do password encription later
+mypasswd <<< cat "${config_dir}"/passwd.txt
+#echo "enter sudo passwd:"
+#read mypasswd
+
+
+#echo "${mypasswd}"
 OS_NAME=$(uname -s)
 
 case "$OS_NAME" in
@@ -16,7 +29,7 @@ case "$OS_NAME" in
                 data_dir="${APP_RES_DIR}/data"
                 txt_dir="${APP_RES_DIR}"/txt
                 log_dir="${APP_RES_DIR}/log"
-                config_dir=""${APP_RES_DIR}/config"
+                config_dir="${APP_RES_DIR}/config"
                 ;;
     Darwin*)
         command -v timeout >/dev/null 2>&1 || { echo >&2 "I require timeout but it is not installed. Please install timeout by: port install timeout(mac) or apt install timeout(linux). installing..."; sudo port install timeout; }
@@ -36,20 +49,7 @@ case "$OS_NAME" in
         ;;
 esac
 
-language_code="$1"
-DATA_ITEMS="$2"
-#echo "what I am getting:"
-#echo "${DATA_ITEMS}"
-#echo "\n"
 
-#mypasswd=$(perl "${shell_script}"/arhyas_command_mac.pl | tr -d '0' | tr -d '\n')
-#will do password encription later
-mypasswd <<< cat "${config_dir}"/passwd.txt
-#echo "enter sudo passwd:"
-#read mypasswd
-
-
-#echo "${mypasswd}"
 
 jq -c '.[]' <<<"${DATA_ITEMS}" | while read i;do
    #echo "$i" "${language_code}" |tr -d '"' | tr -d '\n' | tr -d '\n'  
