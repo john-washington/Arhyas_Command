@@ -50,8 +50,8 @@ found=$(find "${data_dir}" -type f -name "${host}_trace_result.txt" )
 ##if [[ -s  "${data_dir}/${host}_trace_result.txt" ]]; then
 if [[ $(wc -c < "$found" ) -eq 0 ]]; then
     
-    #echo   $mypasswd | sudo -S nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
-    echo   $mypasswd | sudo -S nmap --traceroute -Pn -PA80,443 -oX "${data_dir}"/${host}_trace_result.xml $host
+    echo   $mypasswd | sudo -S nmap -Pn -sn --traceroute -oX "${data_dir}"/${host}_trace_result.xml $host
+    #echo   $mypasswd | sudo -S nmap --traceroute -Pn -PA80,443 -oX "${data_dir}"/${host}_trace_result.xml $host
     
     xmlstarlet sel -t -v "//trace/hop/@ipaddr" "${data_dir}"/${host}_trace_result.xml  > "${data_dir}/${host}_trace_result.txt"
 	
