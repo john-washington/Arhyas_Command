@@ -49,7 +49,18 @@ case "$OS_NAME" in
         ;;
 esac
 
+mkdir -p "${log_dir}"
 
+timestamp=$(date)
+
+#cd "${APP_RES_DIR}"
+
+tar -czvf "${data_dir}"."${timestamp}".tar.gz data
+
+#mv "${data_dir}" "${data_dir}"."${timestamp}"
+rm -rf "${data_dir}"
+
+mkdir -p "${data_dir}"
 
 jq -c '.[]' <<<"${DATA_ITEMS}" | while read i;do
    #echo "$i" "${language_code}" |tr -d '"' | tr -d '\n' | tr -d '\n'  
